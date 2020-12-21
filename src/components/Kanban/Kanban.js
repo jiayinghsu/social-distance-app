@@ -33,7 +33,9 @@ export default function Kanban({onChange = (object) => toLocalStorage('names', o
     const names4 = Object.entries(state).filter((keyValue) => keyValue[1] === 4).map(([key, value]) => key);
 
     // filter by list, create three lists
-    return <ColContainer>
+    return <div>
+        <h1 className="app-title">Instruction</h1>
+    <ColContainer>
         <div className="col" style={{background: "red"}}>left gutter</div>
         <TodoList className="col" header={"Family, Spouse or Partner"} names={names0} onInput={name => addName(0, name)} removeItem={name => addName(-1, name)}/>
         <TodoList className="col" header={"Friends"} names={names1} onInput={name => addName(1, name)} removeItem={name => addName(-1, name)}/>
@@ -41,5 +43,7 @@ export default function Kanban({onChange = (object) => toLocalStorage('names', o
         <TodoList className="col" header={'Acquaintances or strangers'} names={names3} onInput={name => addName(3, name)} removeItem={name => addName(-1, name)}/>
         <TodoList className="col" header={'Competitors or People with Conflict of Interest'} names={names4} onInput={name => addName(4, name)} removeItem={name => addName(-1, name)}/>
         <div className="col" style={{background: "red"}}>right gutter</div>
-    </ColContainer>;
+    </ColContainer>
+
+        </div>;
 }
