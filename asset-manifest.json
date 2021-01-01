@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/social-distance-app/static/css/main.b51001ff.chunk.css",
+    "main.js": "/social-distance-app/static/js/main.987fc89f.chunk.js",
+    "main.js.map": "/social-distance-app/static/js/main.987fc89f.chunk.js.map",
+    "runtime-main.js": "/social-distance-app/static/js/runtime-main.ef40f13e.js",
+    "runtime-main.js.map": "/social-distance-app/static/js/runtime-main.ef40f13e.js.map",
+    "static/css/2.6ab4d17b.chunk.css": "/social-distance-app/static/css/2.6ab4d17b.chunk.css",
+    "static/js/2.477a67c1.chunk.js": "/social-distance-app/static/js/2.477a67c1.chunk.js",
+    "static/js/2.477a67c1.chunk.js.map": "/social-distance-app/static/js/2.477a67c1.chunk.js.map",
+    "index.html": "/social-distance-app/index.html",
+    "static/css/2.6ab4d17b.chunk.css.map": "/social-distance-app/static/css/2.6ab4d17b.chunk.css.map",
+    "static/css/main.b51001ff.chunk.css.map": "/social-distance-app/static/css/main.b51001ff.chunk.css.map",
+    "static/js/2.477a67c1.chunk.js.LICENSE.txt": "/social-distance-app/static/js/2.477a67c1.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ef40f13e.js",
+    "static/css/2.6ab4d17b.chunk.css",
+    "static/js/2.477a67c1.chunk.js",
+    "static/css/main.b51001ff.chunk.css",
+    "static/js/main.987fc89f.chunk.js"
+  ]
+}
