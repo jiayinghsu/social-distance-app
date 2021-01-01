@@ -18,7 +18,7 @@ function Consent() {
         <div>
             <h3>Instruction for consent form [to be added].</h3>
         </div>
-        <Link to="/list" style={{display: "block", marginTop: "15px"}}><StyledButton>Continue</StyledButton></Link>
+        <Link to="/social-distance-app/list" style={{display: "block", marginTop: "15px"}}><StyledButton>Continue</StyledButton></Link>
     </PageContainer>;
 }
 
