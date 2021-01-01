@@ -129,7 +129,7 @@ export default function SliderPage({}) {
     const removeFirstEntry = () => {
         if (entries.length === 1) {
             if (window.confirm("This is the end of the experiment. Thank you for your participation!")) {
-                window.open("/social-distance-app/complete", "_self");
+                window.open("/complete", "_self");
                 //window.close();
             }
         } // need to fix this to get rid of the error messages

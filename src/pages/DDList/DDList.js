@@ -79,7 +79,7 @@ function DDList() {
                         )}
                     </Droppable>
                 </div>
-                <Link to="/social-distance-app/tradeoff" style={{display: "block", marginTop: "15px"}}><StyledButton>Continue</StyledButton></Link>
+                <Link to="/tradeoff" style={{display: "block", marginTop: "15px"}}><StyledButton>Continue</StyledButton></Link>
         </DragDropContext>
     </PageContainer>
 }

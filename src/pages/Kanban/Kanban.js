@@ -61,7 +61,7 @@ export default function Kanban({onChange = (object) => toLocalStorage('names', o
 
     function onContinue() {
         removeLocalStorage("all_names");
-        history.push("/social-distance-app/ranking")
+        history.push("/ranking")
     }
 
     const names0 = Object.entries(state).filter((keyValue) => keyValue[1] === 0).map(([key, value]) => key);

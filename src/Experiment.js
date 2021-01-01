@@ -13,11 +13,11 @@ function Experiment() {
     return (
         <Router>
             <Switch>
-                <Route path="/social-distance-app" exact component={Consent}/>
-                <Route path="/social-distance-app/list" exact component={Kanban}/>
-                <Route path="/social-distance-app/ranking" exact component={DDList}/>
-                <Route path='/social-distance-app/tradeoff' exact component={Slider}/>
-                <Route path='/social-distance-app/complete' exact component={Complete}/>
+                <Route path="/welcome" exact component={Consent}/>
+                <Route path="/list" exact component={Kanban}/>
+                <Route path="/ranking" exact component={DDList}/>
+                <Route path='/tradeoff' exact component={Slider}/>
+                <Route path='/complete' exact component={Complete}/>
                 {/*<Route path="/start" exact component={SurveyComponent}/>*/}
             </Switch>
         </Router>
