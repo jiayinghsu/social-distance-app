@@ -1,20 +1,24 @@
 import React, {useState} from 'react';
 import SurveyComponent from './components/Survey/SurveyComponent';
-import App from './App';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import Kanban from "./components/Kanban/Kanban";
-import ListView from "./components/ListView/ListView";
-
+import Slider from './pages/Slider';
+import {Route, Switch} from 'react-router';
+import {BrowserRouter as Router} from 'react-router-dom';
+import Kanban from "./pages/Kanban/Kanban";
+import DDList from "./pages/DDList/DDList";
+import Complete from "./pages/Completed";
+import Consent from "./pages/Consent";
 
 function Experiment() {
 
     return (
         <Router>
             <Switch>
-                <Route path="/" exact component={Kanban}/>
-                <Route path="/all" exact component={ListView}/>
-                <Route path="/start" exact component={SurveyComponent}/>
-                <Route path='/slider' exact component={App}/>
+                <Route path="/welcome" exact component={Consent}/>
+                <Route path="/list" exact component={Kanban}/>
+                <Route path="/ranking" exact component={DDList}/>
+                <Route path='/tradeoff' exact component={Slider}/>
+                <Route path='/complete' exact component={Complete}/>
+                {/*<Route path="/start" exact component={SurveyComponent}/>*/}
             </Switch>
         </Router>
     );

@@ -5,7 +5,7 @@ import {fromLocalStorage, toLocalStorage} from "../helpers";
 const Spacer = styled.div`
     transition: all 0.25s ease;
     padding: ${props => props.dragHover ? '18px' : '0px'} 10px;
-    margin: 0px;
+    margin: 0;
     background: transparent;
     box-sizing: border-box;
 `;
@@ -28,7 +28,7 @@ const Container = styled.div`
 export default function ListView({className}) {
     let allNames = fromLocalStorage('all_names', []);
     console.log(allNames);
-    if (!!allNames) {
+    if (!allNames) {
         let names = fromLocalStorage('names', {});
         allNames = Object.entries(names).map(([name, listId]) => name);
     }

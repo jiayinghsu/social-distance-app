@@ -13,7 +13,6 @@ let barPadding = 2;
 let barColour = "#23aaff";
 let widthScale = (d) => Math.abs(d*6.5);
 
-// {width, y,
 function BarGroup({data: {name}, state: {value, y}, ..._props}) {
     let width = widthScale(value);
     let yMid = barHeight * 0.5;
@@ -90,12 +89,12 @@ class BarChart extends Component {
     }
 
     render() {
-        const {you, opponent, className, ..._props} = this.props;
+        const {you, opponent, name, className, ..._props} = this.props;
         const nodes = [{
             name: "You receive: ",
             value: you.toFixed(1)
         }, {
-            name: "Bob receives: ",
+            name: `${name} receives: `,
             value: opponent.toFixed(1)
         }]
         return (

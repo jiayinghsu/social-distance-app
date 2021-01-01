@@ -7,3 +7,8 @@ export function fromLocalStorage(key, defaultValue = null) {
 export function toLocalStorage(key, value) {
     window.localStorage.setItem(key, JSON.stringify(value));
 }
+
+export function removeLocalStorage(key) {
+    window.localStorage.removeItem(key);
+}
+
