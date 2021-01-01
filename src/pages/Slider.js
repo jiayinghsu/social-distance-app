@@ -117,11 +117,12 @@ export default function SliderPage({}) {
     duplicatedNames.sort(() => Math.random() - 0.5)
 
     const [entries, setState] = useState(duplicatedNames.map((name) => fromValue(name,)))
+    //console.log(entries)
 
     function setValue(value) {
         const first = value[0];
         setState([
-            fromValue(first.name, value),
+            fromValue(first, value),
             ...entries.slice(1)
         ]);
     }
@@ -129,7 +130,7 @@ export default function SliderPage({}) {
     const removeFirstEntry = () => {
         if (entries.length === 1) {
             if (window.confirm("This is the end of the experiment. Thank you for your participation!")) {
-                window.open("/complete", "_self");
+                window.open("https://www.amazon.com/gift-cards/b?ie=UTF8&node=2238192011", "_self");
                 //window.close();
             }
         } // need to fix this to get rid of the error messages

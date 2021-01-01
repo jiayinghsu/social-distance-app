@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import SurveyComponent from './components/Survey/SurveyComponent';
 import Slider from './pages/Slider';
 import {Route, Switch} from 'react-router';
-import {BrowserRouter as Router} from 'react-router-dom';
+import {HashRouter as Router} from 'react-router-dom';
 import Kanban from "./pages/Kanban/Kanban";
 import DDList from "./pages/DDList/DDList";
 import Complete from "./pages/Completed";
