@@ -6,6 +6,7 @@ import styled from "styled-components";
 import 'react-rangeslider/lib/index.css';
 import RangeSlider from "react-rangeslider";
 import {fromLocalStorage, toLocalStorage} from "../components/helpers";
+import {Link} from "react-router-dom";
 
 const PageContainer = styled.div`
   padding: 40px 100px;
@@ -24,14 +25,15 @@ const StyledApp = styled.div`
 
   > article {
     margin: 0 auto;
+    //margin-left: 50px;
     padding: 50px 0 0 0;
     top: 0;
     bottom: 0;
     width: min(100%, 600px);
 
     .aside {
-      padding-left: 100px;
-      padding-right: 100px;
+      padding-left: 200px;
+      padding-right: 0px;
     }
 
     .left {
@@ -62,6 +64,7 @@ const StyledApp = styled.div`
 
 export const StyledButton = styled.button`
   font-weight: 900;
+  margin-top: 15px;
 
   user-select: none;
   cursor: pointer;
@@ -106,18 +109,16 @@ function fromValue(name, value = null) {
 
 export default function SliderPage({}) {
     const nameData = fromLocalStorage("names", {});
-    //console.log(nameData);
     const names = Object.keys(nameData);
-    //console.log(names)
 
     //duplicate 3 times
-    const duplicatedNames = [...names, ...names, ...names, "You"]
+    const duplicatedNames = [...names, ...names, ...names, "Left", "Right"]
 
     // randomize items in the list
     duplicatedNames.sort(() => Math.random() - 0.5)
 
     const [entries, setState] = useState(duplicatedNames.map((name) => fromValue(name,)))
-    //console.log(entries)
+    // console.log(duplicatedNames.slice(0, 2), entries.slice(0, 2))
 
     function setValue(value) {
         const first = value[0];
@@ -128,13 +129,23 @@ export default function SliderPage({}) {
     }
 
     const removeFirstEntry = () => {
-        if (entries.length === 1) {
-            if (window.confirm("This is the end of the experiment. Thank you for your participation!")) {
-                window.open("https://www.amazon.com/gift-cards/b?ie=UTF8&node=2238192011", "_self");
-                //window.close();
-            }
+        //if (entries.length === 1) {
+        //if (window.confirm("This is the end of the experiment. Thank you for your participation!")) {
+        //window.open("https://www.amazon.com/gift-cards/b?ie=UTF8&node=2238192011", "_self");
+        //window.close();
+        //}
+        //} // need to fix this to get rid of the error messages
+        //setState(entries.slice(1));
+        if (entries.length > 1) {
+            setState(entries.slice(1));
         } // need to fix this to get rid of the error messages
-        setState(entries.slice(1));
+    }
+
+    let button;
+    if (entries.length > 1) {
+        button = <StyledButton onClick={removeFirstEntry}>Submit</StyledButton>;
+    } else {
+        button = <Link to="/break">Done</Link>;
     }
 
     return <PageContainer>
@@ -142,12 +153,18 @@ export default function SliderPage({}) {
             Part III: Welfare Tradeoff
         </h1>
         <p style={{fontSize: 20}}>
-            <p><b>Instruction:</b> Please move the slider to the point where the rewards you and the other receive seem
-                the best to you.
-                Click submit each time after you finish.
-                You will need to trade for about 75 times with different people from your social network in Part II
-                until you reach the final completion page,
-                where you will receive a reward based on your performance.</p>
+            <b>Instruction:</b> Please move the slider to the point where the rewards you and the other receive seem
+            the best to you.
+            Click submit each time after you finish.
+            You will need to trade for about 45 times with different people from your social network in Part II
+            until you reach the final completion page,
+            where you will receive a reward for completing the experiment.
+        </p>
+        <p style={{fontSize: 20}}>
+            <b>Attention:</b> When you see <span style={{color: "red"}}>"Left receives"</span>, please move the slider
+            to the far left.
+            When you see <span style={{color: "red"}}>"Right receives"</span>, please move the slider to the far right.
+
         </p>
         <StyledApp className='App'>
             <article>
@@ -165,7 +182,9 @@ export default function SliderPage({}) {
                             <BarChart className="left" {...entries[0]}/>
                         </>
                         : null}
-                <StyledButton onClick={removeFirstEntry}>Submit</StyledButton>
+                <div style={{marginLeft: "-105px"}}>
+                    {button}
+                </div>
             </article>
         </StyledApp>
     </PageContainer>

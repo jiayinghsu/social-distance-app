@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Slider from './pages/Slider';
+import Slider from './pages/SliderPage';
 
 test('renders learn react link', () => {
   render(<Slider />);

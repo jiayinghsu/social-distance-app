@@ -3,8 +3,9 @@ import './users.css';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import {fromLocalStorage, toLocalStorage} from "../../components/helpers";
 import {Link} from "react-router-dom";
-import {StyledButton} from "../Slider.js"
+import {StyledButton} from "../SliderPage.js";
 import styled from "styled-components";
+import closeness from '../../closeness.png';
 
 function DDList() {
     let allNames = fromLocalStorage('all_names', );
@@ -57,6 +58,11 @@ function DDList() {
         padding: 0;
         margin: auto 0;
       }
+
+      .photo {
+        height: 400px;
+        width: auto;
+      }
     `;
 
     return <PageContainer>
@@ -65,10 +71,12 @@ function DDList() {
                 Part II: Rank Relationships
             </h1>
             <p style={{fontSize: 20}}>
-                <p><b>Instruction:</b> Please rank the people below based on the closeness of your relationships by dragging and dropping their names. The person at #1 would be
-                    someone you know well and is your closest friend or relative. The person at #15 or more might be someone
-                    you feel most distant. Once finished, please press the continue button to the next page.</p>
+                <p><b>Instruction:</b> Please rank the people below based on how successful you want that person to be. The person at #1 would be
+                    someone with whom you feel the closest. The person at #15 or more would be someone
+                    you feel the most distant. The following graph describe your relationships ranking from 1 to 15.
+                    Once finished, please press the continue button to the next page.</p>
             </p>
+            <img src={closeness}  className="photo"  alt="Logo" />
                 <div className='users'>
                     <Droppable droppableId="dp1">
                         {(provided) => (
