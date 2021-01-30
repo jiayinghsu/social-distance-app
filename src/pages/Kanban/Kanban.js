@@ -53,6 +53,7 @@ export default function Kanban({onChange = (object) => toLocalStorage('names', o
 
     function addName(listId, name) {
         console.log("addName", listId, name)
+
         let newState = {...state, [name]: listId};
         setState(newState)
         onChange(newState);

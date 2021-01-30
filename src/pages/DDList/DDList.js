@@ -31,6 +31,8 @@ function DDList() {
     }
 
     const renderUsers = (name, index) => {
+        console.log(name,index)
+
         return <Draggable
             key={index}
             draggableId={index + ' '}
@@ -71,12 +73,13 @@ function DDList() {
                 Part II: Rank Relationships
             </h1>
             <p style={{fontSize: 20}}>
-                <p><b>Instruction:</b> Please rank the people below based on how successful you want that person to be. The person at #1 would be
+                <b>Instruction:</b> Please rank the people below based on the degree of reciprocity that you believe exist
+                    within your social interaction with this person. The person at #1 would be
                     someone with whom you feel the closest. The person at #15 or more would be someone
                     you feel the most distant. The following graph describe your relationships ranking from 1 to 15.
-                    Once finished, please press the continue button to the next page.</p>
+                    Once finished, please press the continue button to the next page.
             </p>
-            <img src={closeness}  className="photo"  alt="Logo" />
+            {/*<img src={closeness}  className="photo"  alt="Logo" />*/}
                 <div className='users'>
                     <Droppable droppableId="dp1">
                         {(provided) => (

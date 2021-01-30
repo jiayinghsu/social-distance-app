@@ -107,7 +107,7 @@ class BarChart extends Component {
                             start={this.startTransition}
                             enter={this.enterTransition}
                             update={this.updateTransition}
-                            leave={this.leaveTransition}
+                            //leave={this.leaveTransition}
                         >
                             {(nodes) => (
                                 <g>

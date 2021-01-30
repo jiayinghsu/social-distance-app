@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useTable, useRowSelect } from "react-table";
 import {Link} from "react-router-dom";
 import {StyledButton} from "../SliderPage";
+import {fromLocalStorage} from "../../components/helpers";
 
 const Styles = styled.div`
   padding: 1rem;
@@ -54,23 +55,18 @@ const IndeterminateCheckbox = React.forwardRef(
         return (
             <>
                 {/*<input type="checkbox" ref={resolvedRef} {...rest} />*/}
-                <input type="radio"  ref={resolvedRef} {...rest} />
+                <input type="radio" name={"choice"} ref={resolvedRef} {...rest} />
             </>
         );
     }
 );
 
+
 function Table({ columns, data }) {
     // Use the state and functions returned from useTable to build your UI
     const [selectedRowId, setSelectedRowId] = useState(null);
-    //let selectedRowIds = 0;
-    //if (selectedRowId) {
-        //selectedRowIds.push(selectedRowId);
-    //    let selectedRowIds = [selectedRowId];
-    //    console.log(selectedRowIds)
-    //}
     let selectedRowIds = [selectedRowId];
-
+    //console.log(selectedRowId)  try pushing this value into the localstorage
 
     const {
         getTableProps,
@@ -101,7 +97,7 @@ function Table({ columns, data }) {
                         <div>
                             <IndeterminateCheckbox
                                 onClick={() => setSelectedRowId(row.id)}
-                                {...row.getToggleRowSelectedProps()}
+                                //{...row.getToggleRowSelectedProps()}
                             />
                         </div>
                     )
@@ -112,7 +108,7 @@ function Table({ columns, data }) {
     );
 
     //console.log(selectedRowIds);
-    console.log("Some issue - selectedFlatRows prints twice..", selectedFlatRows);
+    //console.log("Some issue - selectedFlatRows prints twice..", selectedFlatRows);
 
     // Render the UI for your table
     return (
@@ -147,7 +143,40 @@ function Table({ columns, data }) {
     );
 }
 
+function fromValue(name) {
+    /* use random value if the value is `null`. */
+    //if (id === null) id = 0;
+    return {
+        name
+    }
+}
+
 function Board1() {
+    const nameData = fromLocalStorage("names", {});
+    const names = Object.keys(nameData);
+
+    // turn object into a list
+    const duplicatedNames = [...names]
+
+    // randomize items in the list
+    duplicatedNames.sort(() => Math.random() - 0.5)
+
+    const [entries, setState] = useState(duplicatedNames.map((name) => fromValue(name)))
+
+    const removeFirstEntry = () => {
+        if (entries.length > 1) {
+            setState(entries.slice(1));
+        }
+    }
+
+    let button;
+    if (entries.length > 1) {
+        button = <StyledButton onClick={removeFirstEntry}>Submit</StyledButton>;
+    } else {
+        button = <Link to="/board2"><StyledButton>Done</StyledButton></Link>;
+    }
+
+    let name = entries[0].name
     const columns = React.useMemo(
         () => [
 
@@ -156,7 +185,7 @@ function Board1() {
                 accessor: "you"
             },
             {
-                Header: "Other receives",
+                Header: `${name} receives`,
                 accessor: "other"
             }
         ],
@@ -229,7 +258,7 @@ function Board1() {
         <Styles>
             <Table columns={columns} data={data} />
         </Styles>
-        <Link to="/board2" style={{display: "block", marginTop: "15px"}}><StyledButton>Continue</StyledButton></Link>
+        {button}
     </PageContainer>
 }
 

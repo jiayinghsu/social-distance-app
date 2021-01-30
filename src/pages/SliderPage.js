@@ -114,18 +114,22 @@ export default function SliderPage({}) {
     //duplicate 3 times
     const duplicatedNames = [...names, ...names, ...names, "Left", "Right"]
 
+
     // randomize items in the list
     duplicatedNames.sort(() => Math.random() - 0.5)
 
     const [entries, setState] = useState(duplicatedNames.map((name) => fromValue(name,)))
     // console.log(duplicatedNames.slice(0, 2), entries.slice(0, 2))
+    //console.log(entries)
 
     function setValue(value) {
-        const first = value[0];
+        const first = entries[0].name;
+
         setState([
             fromValue(first, value),
             ...entries.slice(1)
         ]);
+        //console.log(value, entries[0])
     }
 
     const removeFirstEntry = () => {
@@ -145,7 +149,7 @@ export default function SliderPage({}) {
     if (entries.length > 1) {
         button = <StyledButton onClick={removeFirstEntry}>Submit</StyledButton>;
     } else {
-        button = <Link to="/break">Done</Link>;
+        button = <Link to="/break"><StyledButton>Done</StyledButton></Link>;
     }
 
     return <PageContainer>
@@ -180,6 +184,7 @@ export default function SliderPage({}) {
                                              onChange={setValue}/>
                             </div>
                             <BarChart className="left" {...entries[0]}/>
+
                         </>
                         : null}
                 <div style={{marginLeft: "-105px"}}>
