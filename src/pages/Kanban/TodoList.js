@@ -66,7 +66,7 @@ const Container = styled.div`
 `;
 
 
-export default function TodoList({className, header, names, onInput, removeItem}) {
+export default function TodoList({className, header, names, onInput, definition, removeItem}) {
     const [name, setName] = useState('')
 
     function onChange(event) {
@@ -83,6 +83,9 @@ export default function TodoList({className, header, names, onInput, removeItem}
     return <Container className={className}>
         <div className="title row">
             <h2>{header}</h2>
+        </div>
+        <div style={{marginLeft: "20px", marginRight:"20px"}}>
+            {definition}
         </div>
         <input className="row"
                placeholder="Add name"
