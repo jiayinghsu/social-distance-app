@@ -8,7 +8,7 @@ import {
 } from "./helpers.js";
 import "./barchart.css";
 
-let barHeight = 35;
+let barHeight = 45;
 let barPadding = 2;
 let barColour = "#23aaff";
 let widthScale = (d) => Math.abs(d*6.5);
@@ -17,7 +17,7 @@ function BarGroup({data: {name}, state: {value, y}, ..._props}) {
     let width = widthScale(value);
     let yMid = barHeight * 0.5;
 
-    return <g className="bar-group" transform={`translate(${100}, ${y})`}>
+    return <g className="bar-group" transform={`translate(${200}, ${y})`}>
         <rect
             y={barPadding * 0.5}
             width={width}
@@ -99,7 +99,7 @@ class BarChart extends Component {
         }]
         return (
             <div className={className}>
-                <svg width="100%" height="100">
+                <svg width="150%" height="100">
                     <g className="chart">
                         <NodeGroup
                             data={nodes}
@@ -107,7 +107,7 @@ class BarChart extends Component {
                             start={this.startTransition}
                             enter={this.enterTransition}
                             update={this.updateTransition}
-                            leave={this.leaveTransition}
+                            //leave={this.leaveTransition}
                         >
                             {(nodes) => (
                                 <g>

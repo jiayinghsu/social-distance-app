@@ -12,7 +12,7 @@ body {
 .bar-group .name-label {
   text-anchor: end;
   font-weight: 300;
-  font-size: 0.7em;
+  font-size: 1.1em;
   fill: #333;
 }
 
