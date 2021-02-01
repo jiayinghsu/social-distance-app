@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {StyledButton} from "../SliderPage";
 import {fromLocalStorage} from "../../components/helpers";
 
-const Styles = styled.div`
+const Styles1 = styled.div`
   padding: 1rem;
   h2 {
     margin: 10px 18px 0 18px;
@@ -61,6 +61,14 @@ const IndeterminateCheckbox = React.forwardRef(
     }
 );
 
+function fromValue(name, choice) {
+    return {
+        name,
+        choice
+    }
+}
+
+//const [cond, setCond] = useState(false);
 
 function Table({ columns, data }) {
     // Use the state and functions returned from useTable to build your UI
@@ -68,13 +76,22 @@ function Table({ columns, data }) {
     let selectedRowIds = [selectedRowId];
     //console.log(selectedRowId)  try pushing this value into the localstorage
 
+/*    const[entries, setEntries] = useState();
+    function addChoice (rowinfo) {
+        setEntries(rowinfo.map((choice) => fromValue(choice,)))
+    };
+    function addColName (nameinfo) {
+        setEntries(nameinfo.map((name) => fromValue(name,)))
+    };*/
+
+
     const {
         getTableProps,
         getTableBodyProps,
         headerGroups,
         rows,
         prepareRow,
-        selectedFlatRows,
+        //selectedFlatRows,
         //state: { selectedRowPaths }
         //state: { selectedRowIds },
     } = useTable(
@@ -96,7 +113,10 @@ function Table({ columns, data }) {
                     Cell: ({ row }) => (
                         <div>
                             <IndeterminateCheckbox
-                                onClick={() => setSelectedRowId(row.id)}
+                                onClick={() => {setSelectedRowId(row.id);
+                                    //setCond(true);
+                                }}
+
                                 //{...row.getToggleRowSelectedProps()}
                             />
                         </div>
@@ -143,13 +163,7 @@ function Table({ columns, data }) {
     );
 }
 
-function fromValue(name) {
-    /* use random value if the value is `null`. */
-    //if (id === null) id = 0;
-    return {
-        name
-    }
-}
+
 
 function Board1() {
     const nameData = fromLocalStorage("names", {});
@@ -161,19 +175,19 @@ function Board1() {
     // randomize items in the list
     duplicatedNames.sort(() => Math.random() - 0.5)
 
-    const [entries, setState] = useState(duplicatedNames.map((name) => fromValue(name)))
+    const [entries, setEntries] = useState(duplicatedNames.map((name) => fromValue(name,)))
 
     const removeFirstEntry = () => {
         if (entries.length > 1) {
-            setState(entries.slice(1));
+            setEntries(entries.slice(1));
         }
     }
 
     let button;
     if (entries.length > 1) {
-        button = <StyledButton onClick={removeFirstEntry}>Submit</StyledButton>;
+        button = <StyledButton onClick={removeFirstEntry} >Submit</StyledButton>;
     } else {
-        button = <Link to="/board2"><StyledButton>Done</StyledButton></Link>;
+        button = <Link to="/board2"><StyledButton >Done</StyledButton></Link>;
     }
 
     let name = entries[0].name
@@ -189,7 +203,7 @@ function Board1() {
                 accessor: "other"
             }
         ],
-        []
+        [name]
     );
 
     const data = [
@@ -243,21 +257,20 @@ function Board1() {
 
     return <PageContainer>
         <h1 className="app-title">
-            Part IV: Trading with Other
+            Part IV: Game Board 1
         </h1>
 
         <p style={{fontSize: 20}}>
-            <b>Instruction:</b> In this task we ask you to imagine that you have been randomly paired with another person,
-            whom we will refer to simply as the "Other." This other person is someone you do not know and that you will not
-            knowingly meet in the future. Both you cna the "Other" person will be making choices by clicking one of the radio
-            buttons below. Your own choices will produce points for both yourself and the "Other" person. Likewise, the other's
+            <b>Instruction:</b> In this task we ask you to imagine that you have been randomly paired with people you provided in Part I.
+            Both you and the other person will be making choices by clicking one of the radio
+            buttons below. Your own choices will produce points for both yourself and the other person. Likewise, the other's
             choice will produce points for him/her and for you. Every point has value: The more points you receive, the better for you,
-            and the more points the "Other" receives, the better for him/her. Please click continue once you are finished.
+            and the more points the other person receives, the better for him/her. Please click continue once you are finished.
         </p>
 
-        <Styles>
+        <Styles1>
             <Table columns={columns} data={data} />
-        </Styles>
+        </Styles1>
         {button}
     </PageContainer>
 }

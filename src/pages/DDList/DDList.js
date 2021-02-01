@@ -5,7 +5,6 @@ import {fromLocalStorage, toLocalStorage} from "../../components/helpers";
 import {Link} from "react-router-dom";
 import {StyledButton} from "../SliderPage.js";
 import styled from "styled-components";
-import closeness from '../../closeness.png';
 
 function DDList() {
     let allNames = fromLocalStorage('all_names', );
@@ -27,11 +26,14 @@ function DDList() {
         users.splice(source.index, 1);
         users.splice(destination.index, 0, droppedUser);
         setUsers(users);
+        console.log(users)
         toLocalStorage('all_names', users)
+        console.log(localStorage)
     }
 
+
+
     const renderUsers = (name, index) => {
-        console.log(name,index)
 
         return <Draggable
             key={index}

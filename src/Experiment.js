@@ -2,6 +2,7 @@ import React from 'react';
 import Slider from './pages/SliderPage';
 import {Route, Switch} from 'react-router';
 import {HashRouter as Router} from "react-router-dom";
+import { createBrowserHistory } from 'history';
 import Kanban from "./pages/Kanban/Kanban";
 import DDList from "./pages/DDList/DDList";
 import Board1 from "./pages/Board/Board1";
@@ -15,9 +16,12 @@ import Break from "./pages/Break";
 import Complete from "./pages/Completed";
 
 function Experiment() {
+    const history = createBrowserHistory({
+        basename: '/social-distance-app'
+    });
 
     return (
-        <Router>
+        <Router history = {history}>
             <Switch>
                 <Route exact path="/" component={Consent}/>
                 <Route path="/list" exact component={Kanban}/>

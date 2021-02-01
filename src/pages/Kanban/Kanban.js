@@ -52,13 +52,13 @@ export default function Kanban({onChange = (object) => toLocalStorage('names', o
     const [count, setCount] = useState(0);
 
     function addName(listId, name) {
-        console.log("addName", listId, name)
+        //console.log("addName", listId, name)
 
         let newState = {...state, [name]: listId};
         setState(newState)
         onChange(newState);
         setCount(count + 1);
-        console.log("count", count)
+        //console.log("count", count)
     }
 
     const history = useHistory();
@@ -90,45 +90,36 @@ export default function Kanban({onChange = (object) => toLocalStorage('names', o
                 Once finished, please press the continue button to the next page.
                 You will not be able to change the names after you press the continue button. The following are definitions of the five relationship categories.
         </p>
-        <li style={{fontSize: 20}}>
-            <b>Family, Spouse or Partner</b> = People with whom you have ties of blood, marriage, or adoption.
-        </li>
-        <li style={{fontSize: 20}}>
-            <b>Friends</b> = People with whom you have a bond of mutual affection, exclusive of sexual or family relations.
-        </li>
-        <li style={{fontSize: 20}}>
-            <b>Neighbors and Colleagues</b> = People who live and work close with you and have frequent interactions with you in formal settings.
-        </li>
-        <li style={{fontSize: 20}}>
-            <b>Acquaintances</b> = People who you know their names but barely have interactions with you.
-        </li>
-        <li style={{fontSize: 20}}>
-            <b>Adversary</b> = People with whom you are competing for resources of any kind (e.g. romantic relationship).
-        </li>
+
 
         <ColContainer>
             <TodoList className="col"
-                      header={"Family, Spouse or Partner"}
+                      header={"Family+"}
+                      definition={"Parents, spouses/partners, children, or siblings."}
                       names={names0}
                       onInput={name => addName(0, name)}
                       removeItem={name => addName(-1, name)}/>
             <TodoList className="col"
                       header={"Friends"}
+                      definition={"People with whom you like to spend time with outside of your family."}
                       names={names1}
                       onInput={name => addName(1, name)}
                       removeItem={name => addName(-1, name)}/>
             <TodoList className="col"
                       header={'Neighbors and Colleagues'}
+                      definition={"People who frequently interact with you outside of your friends and family."}
                       names={names2}
                       onInput={name => addName(2, name)}
                       removeItem={name => addName(-1, name)}/>
             <TodoList className="col"
                       header={'Acquaintances'}
+                      definition={"People who you know their names but rarely interact with."}
                       names={names3}
                       onInput={name => addName(3, name)}
                       removeItem={name => addName(-1, name)}/>
             <TodoList className="col"
                       header={'Adversary'}
+                      definition={"People with whom you are competing for resources of any kind (e.g. academic scholarship)."}
                       names={names4}
                       onInput={name => addName(4, name)}
                       removeItem={name => addName(-1, name)}/>

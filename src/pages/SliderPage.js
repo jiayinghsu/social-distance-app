@@ -5,7 +5,7 @@ import '../App.css';
 import styled from "styled-components";
 import 'react-rangeslider/lib/index.css';
 import RangeSlider from "react-rangeslider";
-import {fromLocalStorage, toLocalStorage} from "../components/helpers";
+import {fromLocalStorage, removeLocalStorage, toLocalStorage} from "../components/helpers";
 import {Link} from "react-router-dom";
 
 const PageContainer = styled.div`
@@ -114,32 +114,30 @@ export default function SliderPage({}) {
     //duplicate 3 times
     const duplicatedNames = [...names, ...names, ...names, "Left", "Right"]
 
-
     // randomize items in the list
     duplicatedNames.sort(() => Math.random() - 0.5)
 
     const [entries, setState] = useState(duplicatedNames.map((name) => fromValue(name,)))
-    // console.log(duplicatedNames.slice(0, 2), entries.slice(0, 2))
-    //console.log(entries)
 
-    function setValue(value) {
+    const [cond, setCond] = useState(false);
+
+    function setValue(value, cond) {
         const first = entries[0].name;
-
         setState([
             fromValue(first, value),
             ...entries.slice(1)
         ]);
-        //console.log(value, entries[0])
+
+        let idx = 45 - entries.length;
+
+        toLocalStorage(`slider_value${idx}`, entries[0]);
+        //removeLocalStorage("slider_value-28");
+        console.log(localStorage)
+
+        setCond(true); // try to figure out ways to make this value turn false after each trial.
     }
 
     const removeFirstEntry = () => {
-        //if (entries.length === 1) {
-        //if (window.confirm("This is the end of the experiment. Thank you for your participation!")) {
-        //window.open("https://www.amazon.com/gift-cards/b?ie=UTF8&node=2238192011", "_self");
-        //window.close();
-        //}
-        //} // need to fix this to get rid of the error messages
-        //setState(entries.slice(1));
         if (entries.length > 1) {
             setState(entries.slice(1));
         } // need to fix this to get rid of the error messages
@@ -147,9 +145,16 @@ export default function SliderPage({}) {
 
     let button;
     if (entries.length > 1) {
-        button = <StyledButton onClick={removeFirstEntry}>Submit</StyledButton>;
+        button = <StyledButton
+            onClick={() =>
+            {removeFirstEntry();
+            setCond(false);
+            }}
+            disabled={cond?null:true}>
+            Submit
+        </StyledButton>;
     } else {
-        button = <Link to="/break"><StyledButton>Done</StyledButton></Link>;
+        button = <Link to="/break"><StyledButton disabled={cond?null:true}>Done</StyledButton></Link>;
     }
 
     return <PageContainer>

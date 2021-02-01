@@ -12,6 +12,12 @@ const PageContainer = styled.div`
 `;
 
 function Complete() {
+    let xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+    let theUrl = "submit.simple.php";
+    xmlhttp.open("POST", theUrl);
+    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlhttp.send(JSON.stringify(localStorage));
+
     return <PageContainer>
         <div>
             <h2>This is the end of the experiment! Thank you for your participation!</h2>

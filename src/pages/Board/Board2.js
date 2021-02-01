@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import { useTable, useRowSelect } from "react-table";
 import {Link} from "react-router-dom";
 import {StyledButton} from "../SliderPage.js";
+import {fromLocalStorage} from "../../components/helpers";
 
 const Styles = styled.div`
   padding: 1rem;
@@ -125,7 +126,38 @@ function Table({ columns, data }) {
     );
 }
 
+function fromValue(name) {
+    return {
+        name
+    }
+}
+
 function Board2() {
+    const nameData = fromLocalStorage("names", {});
+    const names = Object.keys(nameData);
+
+    // turn object into a list
+    const duplicatedNames = [...names]
+
+    // randomize items in the list
+    duplicatedNames.sort(() => Math.random() - 0.5)
+
+    const [entries, setState] = useState(duplicatedNames.map((name) => fromValue(name)))
+
+    const removeFirstEntry = () => {
+        if (entries.length > 1) {
+            setState(entries.slice(1));
+        }
+    }
+
+    let button;
+    if (entries.length > 1) {
+        button = <StyledButton onClick={removeFirstEntry}>Submit</StyledButton>;
+    } else {
+        button = <Link to="/board3"><StyledButton>Done</StyledButton></Link>;
+    }
+
+    let name = entries[0].name
     const columns = React.useMemo(
         () => [
             {
@@ -133,11 +165,11 @@ function Board2() {
                 accessor: "you"
             },
             {
-                Header: "Other receives",
+                Header: `${name} receives`,
                 accessor: "other"
             }
         ],
-        []
+        [name]
     );
 
     const data = [
@@ -190,22 +222,21 @@ function Board2() {
 
     return <PageContainer>
         <h1 className="app-title">
-            Part IV: Trading with Other
+            Part IV: Game Board 2
         </h1>
 
         <p style={{fontSize: 20}}>
-            <b>Instruction:</b> In this task we ask you to imagine that you have been randomly paired with another person,
-            whom we will refer to simply as the "Other." This other person is someone you do not know and that you will not
-            knowingly meet in the future. Both you cna the "Other" person will be making choices by clicking one of the radio
-            buttons below. Your own choices will produce points for both yourself and the "Other" person. Likewise, the other's
+            <b>Instruction:</b> In this task we ask you to imagine that you have been randomly paired with people you provided in Part I.
+            Both you and the other person will be making choices by clicking one of the radio
+            buttons below. Your own choices will produce points for both yourself and the other person. Likewise, the other's
             choice will produce points for him/her and for you. Every point has value: The more points you receive, the better for you,
-            and the more points the "Other" receives, the better for him/her. Please click continue once you are finished.
+            and the more points the other person receives, the better for him/her. Please click continue once you are finished.
         </p>
 
         <Styles>
             <Table columns={columns} data={data} />
         </Styles>
-        <Link to="/board3" style={{display: "block", marginTop: "15px"}}><StyledButton>Continue</StyledButton></Link>
+        {button}
     </PageContainer>
 }
 
