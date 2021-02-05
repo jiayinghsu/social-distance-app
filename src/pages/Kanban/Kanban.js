@@ -49,16 +49,12 @@ const ColContainer = styled.div`
 
 export default function Kanban({onChange = (object) => toLocalStorage('names', object)}) {
     const [state, setState] = useState({})
-    const [count, setCount] = useState(0);
 
     function addName(listId, name) {
-        //console.log("addName", listId, name)
-
         let newState = {...state, [name]: listId};
         setState(newState)
         onChange(newState);
-        setCount(count + 1);
-        //console.log("count", count)
+
     }
 
     const history = useHistory();
@@ -74,8 +70,10 @@ export default function Kanban({onChange = (object) => toLocalStorage('names', o
     const names3 = Object.entries(state).filter((keyValue) => keyValue[1] === 3).map(([key, value]) => key);
     const names4 = Object.entries(state).filter((keyValue) => keyValue[1] === 4).map(([key, value]) => key);
 
-    let cond = count >= 15 ? true : false;
-
+    let cond = false;
+    if (names0.length===3 && names1.length===3 && names2.length===3 && names4.length===3) {
+        cond = true;
+    }
 
     // filter by list, create three lists
     return <PageContainer>
@@ -119,7 +117,7 @@ export default function Kanban({onChange = (object) => toLocalStorage('names', o
                       removeItem={name => addName(-1, name)}/>
             <TodoList className="col"
                       header={'Adversary'}
-                      definition={"People with whom you are competing for resources of any kind (e.g. academic scholarship)."}
+                      definition={"People with whom you are competing for resources or have negative relationships."}
                       names={names4}
                       onInput={name => addName(4, name)}
                       removeItem={name => addName(-1, name)}/>

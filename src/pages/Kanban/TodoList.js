@@ -71,7 +71,9 @@ export default function TodoList({className, header, names, onInput, definition,
 
     function onChange(event) {
         setName(event.target.value);
+
     }
+
 
     function onSubmit(event) {
         if (event.keyCode === 13) {
@@ -87,6 +89,7 @@ export default function TodoList({className, header, names, onInput, definition,
         <div style={{marginLeft: "20px", marginRight:"20px"}}>
             {definition}
         </div>
+
         <input className="row"
                placeholder="Add name"
                value={name}
@@ -94,7 +97,13 @@ export default function TodoList({className, header, names, onInput, definition,
                onChange={onChange}/>
         {names.map(name => <div className="item row">
             <span>{name}</span>
-            <span className="button" onClick={() => removeItem(name)}>delete</span>
+            <span className="button"
+                  onClick={() => {
+                      removeItem(name);
+                  }}>
+                delete
+            </span>
         </div>)}
+
     </Container>;
 }

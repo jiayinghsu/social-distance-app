@@ -5,6 +5,7 @@ import {HashRouter as Router} from "react-router-dom";
 import { createBrowserHistory } from 'history';
 import Kanban from "./pages/Kanban/Kanban";
 import DDList from "./pages/DDList/DDList";
+import Board from "./pages/Board/Board";
 import Board1 from "./pages/Board/Board1";
 import Board2 from "./pages/Board/Board2";
 import Board3 from "./pages/Board/Board3";
@@ -28,12 +29,13 @@ function Experiment() {
                 <Route path="/ranking" exact component={DDList}/>
                 <Route path='/tradeoff' exact component={Slider}/>
                 <Route path='/break' exact component={Break}/>
-                <Route path='/board1' exact component={Board1}/>
+                <Route path='/board' exact component={Board}/>
+{/*                <Route path='/board1' exact component={Board1}/>
                 <Route path='/board2' exact component={Board2}/>
                 <Route path='/board3' exact component={Board3}/>
                 <Route path='/board4' exact component={Board4}/>
                 <Route path='/board5' exact component={Board5}/>
-                <Route path='/board6' exact component={Board6}/>
+                <Route path='/board6' exact component={Board6}/>*/}
                 <Route path='/complete' exact component={Complete}/>
             </Switch>
         </Router>
