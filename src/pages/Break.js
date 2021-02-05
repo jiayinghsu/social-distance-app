@@ -24,7 +24,7 @@ function Break() {
             <h2>Great job! Now you may take a five-minute break! Please click continue when you are ready to move on to the next part!</h2>
         </div>
 
-        <Link to="/board1" style={{display: "block", marginTop: "15px"}}><LocalButton>Continue</LocalButton></Link>
+        <Link to="/board" style={{display: "block", marginTop: "15px"}}><LocalButton>Continue</LocalButton></Link>
     </PageContainer>;
 }
 

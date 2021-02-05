@@ -24,6 +24,7 @@
     "react-scripts": "4.0.0",
     "react-table": "^7.6.3",
     "react-use": "^15.3.4",
+    "react-window": "^1.8.6",
     "styled-components": "^5.2.1",
     "survey-react": "^1.8.17",
     "tachyons": "^4.12.0",
@@ -56,6 +57,8 @@
   "devDependencies": {
     "carbon-components-react": "^7.24.0",
     "gh-pages": "^3.1.0",
-    "react-move": "^6.4.0"
+    "match-sorter": "^6.2.0",
+    "react-move": "^6.4.0",
+    "use-select": "0.0.6"
   }
 }

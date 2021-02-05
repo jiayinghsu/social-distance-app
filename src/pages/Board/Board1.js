@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useTable, useRowSelect } from "react-table";
-import {Link} from "react-router-dom";
-import {StyledButton} from "../SliderPage";
-import {fromLocalStorage} from "../../components/helpers";
+import { useTable } from "react-table";
+
 
 const Styles1 = styled.div`
   padding: 1rem;
@@ -43,46 +41,10 @@ const Styles1 = styled.div`
   }
 `;
 
-const IndeterminateCheckbox = React.forwardRef(
-    ({ indeterminate, ...rest }, ref) => {
-        const defaultRef = React.useRef();
-        const resolvedRef = ref || defaultRef;
 
-        React.useEffect(() => {
-            resolvedRef.current.indeterminate = indeterminate;
-        }, [resolvedRef, indeterminate]);
 
-        return (
-            <>
-                {/*<input type="checkbox" ref={resolvedRef} {...rest} />*/}
-                <input type="radio" name={"choice"} ref={resolvedRef} {...rest} />
-            </>
-        );
-    }
-);
-
-function fromValue(name, choice) {
-    return {
-        name,
-        choice
-    }
-}
-
-//const [cond, setCond] = useState(false);
 
 function Table({ columns, data }) {
-    // Use the state and functions returned from useTable to build your UI
-    const [selectedRowId, setSelectedRowId] = useState(null);
-    let selectedRowIds = [selectedRowId];
-    //console.log(selectedRowId)  try pushing this value into the localstorage
-
-/*    const[entries, setEntries] = useState();
-    function addChoice (rowinfo) {
-        setEntries(rowinfo.map((choice) => fromValue(choice,)))
-    };
-    function addColName (nameinfo) {
-        setEntries(nameinfo.map((name) => fromValue(name,)))
-    };*/
 
 
     const {
@@ -99,31 +61,6 @@ function Table({ columns, data }) {
             columns,
             data,
             autoResetSelectedRows: false,
-            initialState: {selectedRowIds}
-        },
-        useRowSelect,
-        hooks => {
-            hooks.visibleColumns.push(columns => [
-                // Let's make a column for selection
-                {
-                    id: "selection",
-
-                    // The cell can use the individual row's getToggleRowSelectedProps method
-                    // to the render a checkbox
-                    Cell: ({ row }) => (
-                        <div>
-                            <IndeterminateCheckbox
-                                onClick={() => {setSelectedRowId(row.id);
-                                    //setCond(true);
-                                }}
-
-                                //{...row.getToggleRowSelectedProps()}
-                            />
-                        </div>
-                    )
-                },
-                ...columns
-            ]);
         }
     );
 
@@ -144,7 +81,7 @@ function Table({ columns, data }) {
                 ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                {rows.slice(0, 10).map((row, i) => {
+                {rows.slice(0, 9).map((row, i) => {
                     prepareRow(row);
                     return (
                         <tr {...row.getRowProps()}>
@@ -165,35 +102,14 @@ function Table({ columns, data }) {
 
 
 
-function Board1() {
-    const nameData = fromLocalStorage("names", {});
-    const names = Object.keys(nameData);
+function Board1({name}) {
 
-    // turn object into a list
-    const duplicatedNames = [...names]
-
-    // randomize items in the list
-    duplicatedNames.sort(() => Math.random() - 0.5)
-
-    const [entries, setEntries] = useState(duplicatedNames.map((name) => fromValue(name,)))
-
-    const removeFirstEntry = () => {
-        if (entries.length > 1) {
-            setEntries(entries.slice(1));
-        }
-    }
-
-    let button;
-    if (entries.length > 1) {
-        button = <StyledButton onClick={removeFirstEntry} >Submit</StyledButton>;
-    } else {
-        button = <Link to="/board2"><StyledButton >Done</StyledButton></Link>;
-    }
-
-    let name = entries[0].name
     const columns = React.useMemo(
         () => [
-
+            {
+                Header: "Options",
+                accessor: "option"
+            },
             {
                 Header: "You receive",
                 accessor: "you"
@@ -208,56 +124,57 @@ function Board1() {
 
     const data = [
         {
+            option: "A",
             you: "85",
             other: "85"
         },
         {
+            option: "B",
             you: "85",
             other: "76"
         },
         {
+            option: "C",
             you: "85",
             other: "68"
         },
         {
+            option: "D",
             you: "85",
             other: "59"
         },
         {
+            option: "E",
             you: "85",
             other: "50"
         },
         {
+            option: "F",
             you: "85",
             other: "41"
         },
         {
+            option: "G",
             you: "85",
             other: "33"
         },
         {
+            option: "H",
             you: "85",
             other: "24"
         },
         {
+            option: "I",
             you: "85",
             other: "15"
         }
     ];
 
-    const PageContainer = styled.div`
-      padding: 40px 100px;
 
-      h1 {
-        padding: 0;
-        margin: auto 0;
-      }
 
-    `;
-
-    return <PageContainer>
+    return <div>
         <h1 className="app-title">
-            Part IV: Game Board 1
+            Part IV: Game Boards
         </h1>
 
         <p style={{fontSize: 20}}>
@@ -268,11 +185,14 @@ function Board1() {
             and the more points the other person receives, the better for him/her. Please click continue once you are finished.
         </p>
 
+        <h2 className="app-title">
+            Game Board 1
+        </h2>
+
         <Styles1>
             <Table columns={columns} data={data} />
         </Styles1>
-        {button}
-    </PageContainer>
+    </div>
 }
 
 export default Board1;
