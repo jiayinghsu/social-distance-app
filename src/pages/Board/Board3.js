@@ -41,8 +41,33 @@ const Styles = styled.div`
   }
 `;
 
-function Table({ columns, data }) {
 
+const IndeterminateCheckbox = React.forwardRef(
+    ({indeterminate, ...rest}, ref) => {
+        const defaultRef = React.useRef();
+        const resolvedRef = ref || defaultRef;
+
+        React.useEffect(() => {
+            resolvedRef.current.indeterminate = indeterminate;
+        }, [resolvedRef, indeterminate]);
+
+        return (
+            <>
+                {/*<input type="checkbox" ref={resolvedRef} {...rest} />*/}
+                <input type="radio" name={"board3"} ref={resolvedRef} {...rest} />
+            </>
+        );
+    }
+);
+
+
+function Table({columns, data, onRowSelect}) {
+    // Use the state and functions returned from useTable to build your UI
+    const [selectedRowId, setSelectedRowId] = useState(null);
+    let selectedRowIds = [selectedRowId];
+
+    console.log(selectedRowIds)
+    //console.log(selectedRowId)  try pushing this value into the localstorage
 
     const {
         getTableProps,
@@ -58,6 +83,31 @@ function Table({ columns, data }) {
             columns,
             data,
             autoResetSelectedRows: false,
+            initialState: {selectedRowIds}
+        },
+        useRowSelect,
+        hooks => {
+            hooks.visibleColumns.push(columns => [
+                // Let's make a column for selection
+                {
+                    id: "selection",
+
+                    // The cell can use the individual row's getToggleRowSelectedProps method
+                    // to the render a checkbox
+                    Cell: ({row}) => (
+                        <div>
+                            <IndeterminateCheckbox
+                                onClick={() => {
+                                    onRowSelect(row.id, true);
+                                }}
+
+                                //{...row.getToggleRowSelectedProps()}
+                            />
+                        </div>
+                    )
+                },
+                ...columns
+            ]);
         }
     );
 
@@ -78,7 +128,7 @@ function Table({ columns, data }) {
                 ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                {rows.slice(0, 9).map((row, i) => {
+                {rows.slice(0, 10).map((row, i) => {
                     prepareRow(row);
                     return (
                         <tr {...row.getRowProps()}>
@@ -92,19 +142,14 @@ function Table({ columns, data }) {
                 })}
                 </tbody>
             </table>
-
         </>
     );
 }
 
-function Board3({name}) {
+function Board3({name, onRowSelect}) {
 
     const columns = React.useMemo(
         () => [
-            {
-                Header: "Options",
-                accessor: "option"
-            },
             {
                 Header: "You receive",
                 accessor: "you"
@@ -119,52 +164,42 @@ function Board3({name}) {
 
     const data = [
         {
-            option: "A",
             you: "50",
             other: "100"
         },
         {
-            option: "B",
             you: "54",
             other: "98"
         },
         {
-            option: "C",
             you: "59",
             other: "96"
         },
         {
-            option: "D",
             you: "63",
             other: "94"
         },
         {
-            option: "E",
             you: "68",
             other: "93"
         },
         {
-            option: "F",
             you: "72",
             other: "91"
         },
         {
-            option: "G",
             you: "76",
             other: "89"
         },
         {
-            option: "H",
             you: "81",
             other: "87"
         },
         {
-            option: "I",
             you: "85",
             other: "85"
         }
     ];
-
 
 
     return <div>
@@ -172,8 +207,9 @@ function Board3({name}) {
             Game Board 3
         </h2>
 
+
         <Styles>
-            <Table columns={columns} data={data} />
+            <Table columns={columns} data={data} onRowSelect={onRowSelect} />
         </Styles>
     </div>
 }

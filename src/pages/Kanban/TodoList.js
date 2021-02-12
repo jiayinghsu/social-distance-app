@@ -66,7 +66,7 @@ const Container = styled.div`
 `;
 
 
-export default function TodoList({className, header, names, onInput, definition, removeItem}) {
+export default function TodoList({disableInput, className, header, names, onInput, definition, removeItem}) {
     const [name, setName] = useState('')
 
     function onChange(event) {
@@ -76,7 +76,7 @@ export default function TodoList({className, header, names, onInput, definition,
 
 
     function onSubmit(event) {
-        if (event.keyCode === 13) {
+        if (event.keyCode === 13 && !name.split('').every(c => c === ' ') ) {
             onInput(name);
             setName("");
         }
@@ -94,7 +94,8 @@ export default function TodoList({className, header, names, onInput, definition,
                placeholder="Add name"
                value={name}
                onKeyUp={onSubmit}
-               onChange={onChange}/>
+               onChange={onChange}
+               disabled={disableInput}/>
         {names.map(name => <div className="item row">
             <span>{name}</span>
             <span className="button"

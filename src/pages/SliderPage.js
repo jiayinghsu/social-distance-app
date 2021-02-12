@@ -98,7 +98,7 @@ export const StyledButton = styled.button`
 
 function fromValue(name, value = null) {
     /* use random value if the value is `null`. */
-    if (value === null) value = Math.random();
+    if (value === null) value = ((Math.random() * (1.5 + 1.5)) - 1.5);
     return {
         value,
         name,
@@ -108,9 +108,12 @@ function fromValue(name, value = null) {
 }
 
 export default function SliderPage({}) {
-    const nameData = fromLocalStorage("names", {});
-    const names = Object.keys(nameData);
 
+    const nameData = fromLocalStorage("names", {});
+    //const names = Object.keys(nameData);
+    let names = Object.entries(nameData).filter(([k, v]) => v !== -1);
+    names = Object.fromEntries(names);
+    names = Object.entries(names).map(([name, listId]) => name);
     //duplicate 3 times
     const duplicatedNames = [...names, ...names, ...names, "Left", "Right"]
 
@@ -132,7 +135,7 @@ export default function SliderPage({}) {
 
         toLocalStorage(`slider_value${idx}`, entries[0]);
         //removeLocalStorage("slider_value-28");
-        console.log(localStorage)
+        //console.log(localStorage)
 
         setCond(true); // try to figure out ways to make this value turn false after each trial.
     }
@@ -162,17 +165,16 @@ export default function SliderPage({}) {
             Part III: Welfare Tradeoff
         </h1>
         <p style={{fontSize: 20}}>
-            <b>Instruction:</b> Please move the slider to the point where the rewards you and the other receive seem
-            the best to you.
-            Click submit each time after you finish.
-            You will need to trade for about 45 times with different people from your social network in Part II
-            until you reach the final completion page,
-            where you will receive a reward for completing the experiment.
+            <b>Instruction:</b> The slider below allows you to choose from among different scenarios that allocate money
+            between you and the person listed. Please choose the slider setting that represents the deal you would like best
+            between you and this person. Click submit each time after you finish. You won't be assigned a person until you
+            move the slider. In this section, you will be asked to choose a money allocation between you and one of the people
+            in your social network around 45 times, so you will likely see the same person multiple times.
         </p>
         <p style={{fontSize: 20}}>
-            <b>Attention:</b> When you see <span style={{color: "red"}}>"Left receives"</span>, please move the slider
-            to the far left.
-            When you see <span style={{color: "red"}}>"Right receives"</span>, please move the slider to the far right.
+            <b>Attention:</b> Sometimes, instead of a person's name, you will see <span style={{color: "red"}}>"Left receives"</span>,
+            where you need to move the slider to the far left, or <span style={{color: "red"}}>"Right receives"</span>,
+            where you need to move the slider to the far right.
 
         </p>
         <StyledApp className='App'>

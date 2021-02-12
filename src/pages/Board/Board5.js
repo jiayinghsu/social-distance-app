@@ -1,3 +1,5 @@
+
+
 import React, {useState} from "react";
 import styled from "styled-components";
 import { useTable, useRowSelect } from "react-table";
@@ -41,8 +43,33 @@ const Styles = styled.div`
   }
 `;
 
-function Table({ columns, data }) {
 
+const IndeterminateCheckbox = React.forwardRef(
+    ({indeterminate, ...rest}, ref) => {
+        const defaultRef = React.useRef();
+        const resolvedRef = ref || defaultRef;
+
+        React.useEffect(() => {
+            resolvedRef.current.indeterminate = indeterminate;
+        }, [resolvedRef, indeterminate]);
+
+        return (
+            <>
+                {/*<input type="checkbox" ref={resolvedRef} {...rest} />*/}
+                <input type="radio" name={"board5"} ref={resolvedRef} {...rest} />
+            </>
+        );
+    }
+);
+
+
+function Table({columns, data, onRowSelect}) {
+    // Use the state and functions returned from useTable to build your UI
+    const [selectedRowId, setSelectedRowId] = useState(null);
+    let selectedRowIds = [selectedRowId];
+
+    console.log(selectedRowIds)
+    //console.log(selectedRowId)  try pushing this value into the localstorage
 
     const {
         getTableProps,
@@ -58,6 +85,31 @@ function Table({ columns, data }) {
             columns,
             data,
             autoResetSelectedRows: false,
+            initialState: {selectedRowIds}
+        },
+        useRowSelect,
+        hooks => {
+            hooks.visibleColumns.push(columns => [
+                // Let's make a column for selection
+                {
+                    id: "selection",
+
+                    // The cell can use the individual row's getToggleRowSelectedProps method
+                    // to the render a checkbox
+                    Cell: ({row}) => (
+                        <div>
+                            <IndeterminateCheckbox
+                                onClick={() => {
+                                    onRowSelect(row.id, true);
+                                }}
+
+                                //{...row.getToggleRowSelectedProps()}
+                            />
+                        </div>
+                    )
+                },
+                ...columns
+            ]);
         }
     );
 
@@ -78,7 +130,7 @@ function Table({ columns, data }) {
                 ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                {rows.slice(0, 9).map((row, i) => {
+                {rows.slice(0, 10).map((row, i) => {
                     prepareRow(row);
                     return (
                         <tr {...row.getRowProps()}>
@@ -92,19 +144,14 @@ function Table({ columns, data }) {
                 })}
                 </tbody>
             </table>
-
         </>
     );
 }
 
-function Board5({name}) {
+function Board5({name, onRowSelect}) {
 
     const columns = React.useMemo(
         () => [
-            {
-                Header: "Options",
-                accessor: "option"
-            },
             {
                 Header: "You receive",
                 accessor: "you"
@@ -119,52 +166,42 @@ function Board5({name}) {
 
     const data = [
         {
-            option: "A",
-            you: "100",
-            other: "50"
+            you: "50",
+            other: "100"
         },
         {
-            option: "B",
-            you: "94",
-            other: "56"
+            you: "54",
+            other: "98"
         },
         {
-            option: "C",
-            you: "88",
-            other: "63"
+            you: "59",
+            other: "96"
         },
         {
-            option: "D",
-            you: "81",
-            other: "69"
-        },
-        {
-            option: "E",
-            you: "75",
-            other: "75"
-        },
-        {
-            option: "F",
-            you: "69",
-            other: "81"
-        },
-        {
-            option: "G",
             you: "63",
-            other: "88"
-        },
-        {
-            option: "H",
-            you: "56",
             other: "94"
         },
         {
-            option: "I",
-            you: "50",
-            other: "100"
+            you: "68",
+            other: "93"
+        },
+        {
+            you: "72",
+            other: "91"
+        },
+        {
+            you: "76",
+            other: "89"
+        },
+        {
+            you: "81",
+            other: "87"
+        },
+        {
+            you: "85",
+            other: "85"
         }
     ];
-
 
 
     return <div>
@@ -174,9 +211,8 @@ function Board5({name}) {
 
 
         <Styles>
-            <Table columns={columns} data={data} />
+            <Table columns={columns} data={data} onRowSelect={onRowSelect} />
         </Styles>
-
     </div>
 }
 
