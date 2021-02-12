@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { useTable } from "react-table";
-
+import {useTable, useRowSelect} from "react-table";
 
 const Styles1 = styled.div`
   padding: 1rem;
+
   h2 {
     margin: 10px 18px 0 18px;
     text-align: left;
@@ -14,7 +14,6 @@ const Styles1 = styled.div`
     border-spacing: 0;
     border: 1px solid gray;
     width: 30%;
-
 
     tr {
       :last-child {
@@ -32,21 +31,34 @@ const Styles1 = styled.div`
       border-right: 1px solid gray;
       text-align: center;
 
-
       :last-child {
         border-right: 0;
-
       }
     }
   }
 `;
 
+const IndeterminateCheckbox = React.forwardRef(
+    ({indeterminate, ...rest}, ref) => {
+        const defaultRef = React.useRef();
+        const resolvedRef = ref || defaultRef;
+
+        React.useEffect(() => {
+            resolvedRef.current.indeterminate = indeterminate;
+        }, [resolvedRef, indeterminate]);
+
+        return (
+            <>
+                {/*<input type="checkbox" ref={resolvedRef} {...rest} />*/}
+                <input type="radio" name={"board1"} ref={resolvedRef} {...rest} />
+            </>
+        );
+    }
+);
 
 
-
-function Table({ columns, data }) {
-
-
+function Table({columns, data, onRowSelect}) {
+    // Use the state and functions returned from useTable to build your UI
     const {
         getTableProps,
         getTableBodyProps,
@@ -61,6 +73,32 @@ function Table({ columns, data }) {
             columns,
             data,
             autoResetSelectedRows: false,
+            //initialState: {selectedRowIds}
+        },
+        useRowSelect,
+        hooks => {
+            hooks.visibleColumns.push(columns => [
+                // Let's make a column for selection
+                {
+                    id: "selection",
+
+                    // The cell can use the individual row's getToggleRowSelectedProps method
+                    // to the render a checkbox
+                    Cell: ({row}) => (
+                        <div>
+                            <IndeterminateCheckbox
+                                onClick={() => {
+                                    onRowSelect(row.id, true);
+
+                                }}
+
+                                /*{...row.getToggleRowSelectedProps()}*/
+                            />
+                        </div>
+                    )
+                },
+                ...columns
+            ]);
         }
     );
 
@@ -81,7 +119,7 @@ function Table({ columns, data }) {
                 ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                {rows.slice(0, 9).map((row, i) => {
+                {rows.slice(0, 10).map((row, i) => {
                     prepareRow(row);
                     return (
                         <tr {...row.getRowProps()}>
@@ -95,21 +133,16 @@ function Table({ columns, data }) {
                 })}
                 </tbody>
             </table>
-
         </>
     );
 }
 
 
-
-function Board1({name}) {
+function Board1({name, onRowSelect}) {
 
     const columns = React.useMemo(
         () => [
-            {
-                Header: "Options",
-                accessor: "option"
-            },
+
             {
                 Header: "You receive",
                 accessor: "you"
@@ -124,73 +157,63 @@ function Board1({name}) {
 
     const data = [
         {
-            option: "A",
             you: "85",
             other: "85"
         },
         {
-            option: "B",
             you: "85",
             other: "76"
         },
         {
-            option: "C",
             you: "85",
             other: "68"
         },
         {
-            option: "D",
             you: "85",
             other: "59"
         },
         {
-            option: "E",
             you: "85",
             other: "50"
         },
         {
-            option: "F",
             you: "85",
             other: "41"
         },
         {
-            option: "G",
             you: "85",
             other: "33"
         },
         {
-            option: "H",
             you: "85",
             other: "24"
         },
         {
-            option: "I",
             you: "85",
             other: "15"
         }
     ];
 
 
-
     return <div>
-        <h1 className="app-title">
-            Part IV: Game Boards
+        <h1>
+            Part IV: Game Board
         </h1>
 
         <p style={{fontSize: 20}}>
-            <b>Instruction:</b> In this task we ask you to imagine that you have been randomly paired with people you provided in Part I.
-            Both you and the other person will be making choices by clicking one of the radio
-            buttons below. Your own choices will produce points for both yourself and the other person. Likewise, the other's
-            choice will produce points for him/her and for you. Every point has value: The more points you receive, the better for you,
-            and the more points the other person receives, the better for him/her. Please click continue once you are finished.
+            <b>Instruction:</b> In this task we ask you to imagine that you have been randomly paired with people you
+            provided in Part I to split money in dollars. You will be making choices by clicking one of the radio buttons below.
+            Your own choices will produce money for both yourself and the other person. The more money you receive, the
+            better for you, and the more money the other person receives, the better for him/her. Please click continue once you are
+            finished.
         </p>
 
-        <h2 className="app-title">
+        <h2>
             Game Board 1
         </h2>
 
         <Styles1>
-            <Table columns={columns} data={data} />
+            <Table columns={columns} data={data} onRowSelect={onRowSelect}/>
         </Styles1>
     </div>
 }

@@ -41,8 +41,33 @@ const Styles = styled.div`
   }
 `;
 
-function Table({ columns, data }) {
 
+const IndeterminateCheckbox = React.forwardRef(
+    ({indeterminate, ...rest}, ref) => {
+        const defaultRef = React.useRef();
+        const resolvedRef = ref || defaultRef;
+
+        React.useEffect(() => {
+            resolvedRef.current.indeterminate = indeterminate;
+        }, [resolvedRef, indeterminate]);
+
+        return (
+            <>
+                {/*<input type="checkbox" ref={resolvedRef} {...rest} />*/}
+                <input type="radio" name={"board6"} ref={resolvedRef} {...rest} />
+            </>
+        );
+    }
+);
+
+
+function Table({columns, data, onRowSelect}) {
+    // Use the state and functions returned from useTable to build your UI
+    const [selectedRowId, setSelectedRowId] = useState(null);
+    let selectedRowIds = [selectedRowId];
+
+    console.log(selectedRowIds)
+    //console.log(selectedRowId)  try pushing this value into the localstorage
 
     const {
         getTableProps,
@@ -58,6 +83,31 @@ function Table({ columns, data }) {
             columns,
             data,
             autoResetSelectedRows: false,
+            initialState: {selectedRowIds}
+        },
+        useRowSelect,
+        hooks => {
+            hooks.visibleColumns.push(columns => [
+                // Let's make a column for selection
+                {
+                    id: "selection",
+
+                    // The cell can use the individual row's getToggleRowSelectedProps method
+                    // to the render a checkbox
+                    Cell: ({row}) => (
+                        <div>
+                            <IndeterminateCheckbox
+                                onClick={() => {
+                                    onRowSelect(row.id, true);
+                                }}
+
+                                //{...row.getToggleRowSelectedProps()}
+                            />
+                        </div>
+                    )
+                },
+                ...columns
+            ]);
         }
     );
 
@@ -78,7 +128,7 @@ function Table({ columns, data }) {
                 ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                {rows.slice(0, 9).map((row, i) => {
+                {rows.slice(0, 10).map((row, i) => {
                     prepareRow(row);
                     return (
                         <tr {...row.getRowProps()}>
@@ -92,20 +142,14 @@ function Table({ columns, data }) {
                 })}
                 </tbody>
             </table>
-
         </>
     );
 }
 
-function Board6({name}) {
-
+function Board6({name, onRowSelect}) {
 
     const columns = React.useMemo(
         () => [
-            {
-                Header: "Options",
-                accessor: "option"
-            },
             {
                 Header: "You receive",
                 accessor: "you"
@@ -120,47 +164,38 @@ function Board6({name}) {
 
     const data = [
         {
-            option: "A",
             you: "100",
             other: "50"
         },
         {
-            option: "B",
             you: "98",
             other: "54"
         },
         {
-            option: "C",
             you: "96",
             other: "59"
         },
         {
-            option: "D",
             you: "94",
             other: "63"
         },
         {
-            option: "E",
             you: "93",
             other: "68"
         },
         {
-            option: "F",
             you: "91",
             other: "72"
         },
         {
-            option: "G",
             you: "89",
             other: "76"
         },
         {
-            option: "H",
             you: "87",
             other: "81"
         },
         {
-            option: "I",
             you: "85",
             other: "85"
         }
@@ -174,9 +209,8 @@ function Board6({name}) {
 
 
         <Styles>
-            <Table columns={columns} data={data} />
+            <Table columns={columns} data={data} onRowSelect={onRowSelect} />
         </Styles>
-
     </div>
 }
 

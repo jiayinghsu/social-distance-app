@@ -4,6 +4,7 @@ import TodoList from "./TodoList";
 import {removeLocalStorage, toLocalStorage} from "../../components/helpers";
 import {StyledButton} from "../SliderPage.js";
 import {useHistory} from "react-router-dom";
+import {Alert} from "react-st-modal";
 
 
 const PageContainer = styled.div`
@@ -57,12 +58,7 @@ export default function Kanban({onChange = (object) => toLocalStorage('names', o
 
     }
 
-    const history = useHistory();
 
-    function onContinue() {
-        removeLocalStorage("all_names");
-        history.push("/ranking")
-    }
 
     const names0 = Object.entries(state).filter((keyValue) => keyValue[1] === 0).map(([key, value]) => key);
     const names1 = Object.entries(state).filter((keyValue) => keyValue[1] === 1).map(([key, value]) => key);
@@ -70,10 +66,17 @@ export default function Kanban({onChange = (object) => toLocalStorage('names', o
     const names3 = Object.entries(state).filter((keyValue) => keyValue[1] === 3).map(([key, value]) => key);
     const names4 = Object.entries(state).filter((keyValue) => keyValue[1] === 4).map(([key, value]) => key);
 
-    let cond = false;
-    if (names0.length===3 && names1.length===3 && names2.length===3 && names4.length===3) {
-        cond = true;
+    const history = useHistory();
+
+    async function onContinue() {
+        if (names0.length!==3 || names1.length!==3 || names2.length!==3 || names4.length!==3){
+            await Alert( "Each category must have exactly three names!","OOPS!")
+        } else {
+            removeLocalStorage("all_names");
+            history.push("/ranking");
+        }
     }
+
 
     // filter by list, create three lists
     return <PageContainer>
@@ -82,11 +85,11 @@ export default function Kanban({onChange = (object) => toLocalStorage('names', o
         </h1>
         <p style={{fontSize: 20}}>
             <b>Instruction:</b> Please input the first name of three people in each of the five categories
-                below. Make sure each name you put in the category is unique. If you have two people whose first names are the same (e.g. John),
-                put in the first as John and the second as John-b.
+                below. Make sure each name you put in the category is unique. If you have two people with the same first name,
+                please include the beginning of their last name or some other information to help you keep track of which is which.
                 Press enter to add names. You can delete a name by hovering your mouse over the name and click the delete button.
-                Once finished, please press the continue button to the next page.
-                You will not be able to change the names after you press the continue button. The following are definitions of the five relationship categories.
+                Once finished, please press the continue button go to the next page.
+                You will not be able to change the names after you press the continue button. In each box is a definition of that relationship category.
         </p>
 
 
@@ -96,33 +99,40 @@ export default function Kanban({onChange = (object) => toLocalStorage('names', o
                       definition={"Parents, spouses/partners, children, or siblings."}
                       names={names0}
                       onInput={name => addName(0, name)}
+                      disableInput={names0.length >= 3}
                       removeItem={name => addName(-1, name)}/>
             <TodoList className="col"
                       header={"Friends"}
-                      definition={"People with whom you like to spend time with outside of your family."}
+                      definition={"People outside your family with whom you like to spend time."}
                       names={names1}
                       onInput={name => addName(1, name)}
+                      disableInput={names1.length >= 3}
                       removeItem={name => addName(-1, name)}/>
             <TodoList className="col"
                       header={'Neighbors and Colleagues'}
                       definition={"People who frequently interact with you outside of your friends and family."}
                       names={names2}
                       onInput={name => addName(2, name)}
+                      disableInput={names2.length >= 3}
                       removeItem={name => addName(-1, name)}/>
             <TodoList className="col"
                       header={'Acquaintances'}
-                      definition={"People who you know their names but rarely interact with."}
+                      definition={"People whose names you know but who you rarely interact with."}
                       names={names3}
                       onInput={name => addName(3, name)}
+                      disableInput={names3.length >= 3}
                       removeItem={name => addName(-1, name)}/>
             <TodoList className="col"
                       header={'Adversary'}
                       definition={"People with whom you are competing for resources or have negative relationships."}
                       names={names4}
                       onInput={name => addName(4, name)}
+                      disableInput={names4.length >= 3}
                       removeItem={name => addName(-1, name)}/>
         </ColContainer>
 
-        <LocalButton onClick={onContinue} disabled={cond?null:true}>Continue</LocalButton>
+        <LocalButton onClick={onContinue}>
+            Continue
+        </LocalButton>
     </PageContainer>;
 }

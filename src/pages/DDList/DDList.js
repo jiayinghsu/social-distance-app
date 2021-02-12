@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './users.css';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import {fromLocalStorage, toLocalStorage} from "../../components/helpers";
@@ -8,11 +8,23 @@ import styled from "styled-components";
 
 function DDList() {
     let allNames = fromLocalStorage('all_names', );
+
     if (!allNames) {
         let orderedNames = fromLocalStorage('names', {});
-        allNames = Object.entries(orderedNames).map(([name, listId]) => name);
+        //console.log(localStorage)
+/*        orderedNames = orderedNames.filter(function(e){
+            return listID == 0
+        });*/
+
+        let filteredNames = Object.entries(orderedNames).filter(([k, v]) => v !== -1);
+        filteredNames = Object.fromEntries(filteredNames)
+        //console.log(filteredNames)
+
+        allNames = Object.entries(filteredNames).map(([name, listId]) => name);
+        allNames.sort(() => Math.random() - 0.5)
     }
     const [names, setUsers] = useState(allNames)
+
 
     const onDragEnd = result => {
         const {destination, source, reason} = result;
@@ -26,9 +38,7 @@ function DDList() {
         users.splice(source.index, 1);
         users.splice(destination.index, 0, droppedUser);
         setUsers(users);
-        console.log(users)
         toLocalStorage('all_names', users)
-        console.log(localStorage)
     }
 
 
@@ -75,11 +85,10 @@ function DDList() {
                 Part II: Rank Relationships
             </h1>
             <p style={{fontSize: 20}}>
-                <b>Instruction:</b> Please rank the people below based on the degree of reciprocity that you believe exist
-                    within your social interaction with this person. The person at #1 would be
+                <b>Instruction:</b> Please rank the people below based on how close you are with them. The person at #1 would be
                     someone with whom you feel the closest. The person at #15 or more would be someone
-                    you feel the most distant. The following graph describe your relationships ranking from 1 to 15.
-                    Once finished, please press the continue button to the next page.
+                    you feel the most distant.
+                    Once finished, please press the continue button go to the next page.
             </p>
             {/*<img src={closeness}  className="photo"  alt="Logo" />*/}
                 <div className='users'>
