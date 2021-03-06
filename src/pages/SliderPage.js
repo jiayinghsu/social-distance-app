@@ -162,14 +162,15 @@ export default function SliderPage({}) {
 
     return <PageContainer>
         <h1 className="app-title">
-            Part III: Welfare Tradeoff
+            Part III: Splitting Money
         </h1>
         <p style={{fontSize: 20}}>
-            <b>Instruction:</b> The slider below allows you to choose from among different scenarios that allocate money
-            between you and the person listed. Please choose the slider setting that represents the deal you would like best
-            between you and this person. Click submit each time after you finish. You won't be assigned a person until you
-            move the slider. In this section, you will be asked to choose a money allocation between you and one of the people
-            in your social network around 45 times, so you will likely see the same person multiple times.
+            <b>Instruction:</b> Think about your relationship with this person <b> at the time of the event</b>. Imagine that
+            we could pay either you or the person whose names you input in Part I a sum of money that person could use for
+            anything he or she wished. The money would be his/hers to keep. Please choose the slider setting that represents
+            the deal you would like best between you and this person. Click submit each time after you finish. You won't be
+            assigned a new person until you move the slider. In this section, you will be asked to choose a money allocation
+            around 45 times, so you will likely see the same person multiple times.
         </p>
         <p style={{fontSize: 20}}>
             <b>Attention:</b> Sometimes, instead of a person's name, you will see <span style={{color: "red"}}>"Left receives"</span>,

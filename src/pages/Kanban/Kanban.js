@@ -87,7 +87,7 @@ export default function Kanban({onChange = (object) => toLocalStorage('names', o
             <b>Instruction:</b> Please input the first name of three people in each of the five categories
                 below. Make sure each name you put in the category is unique. If you have two people with the same first name,
                 please include the beginning of their last name or some other information to help you keep track of which is which.
-                Press enter to add names. You can delete a name by hovering your mouse over the name and click the delete button.
+                Press enter to add names. You can delete a name by hovering your mouse over the name and clicking the delete button.
                 Once finished, please press the continue button go to the next page.
                 You will not be able to change the names after you press the continue button. In each box is a definition of that relationship category.
         </p>
@@ -124,7 +124,7 @@ export default function Kanban({onChange = (object) => toLocalStorage('names', o
                       removeItem={name => addName(-1, name)}/>
             <TodoList className="col"
                       header={'Adversary'}
-                      definition={"People with whom you are competing for resources or have negative relationships."}
+                      definition={"People with whom you are competing for resources or have negative relationships. Public figures (e.g. Donald Trump) are included."}
                       names={names4}
                       onInput={name => addName(4, name)}
                       disableInput={names4.length >= 3}

@@ -85,10 +85,10 @@ function DDList() {
                 Part II: Rank Relationships
             </h1>
             <p style={{fontSize: 20}}>
-                <b>Instruction:</b> Please rank the people below based on how close you are with them. The person at #1 would be
-                    someone with whom you feel the closest. The person at #15 or more would be someone
-                    you feel the most distant.
-                    Once finished, please press the continue button go to the next page.
+                <b>Instruction:</b> Please rank the people below based on how close you are with them by clicking on the name
+                and dragging it to your preferred ranking position. The person at #1 would be someone with whom you feel the closest.
+                The person at #15 would be someone from whom you feel the most distant.
+                Once finished, please press the continue button go to the next page.
             </p>
             {/*<img src={closeness}  className="photo"  alt="Logo" />*/}
                 <div className='users'>

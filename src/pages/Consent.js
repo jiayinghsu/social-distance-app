@@ -34,15 +34,15 @@ function Consent() {
                 <b>Eligibility requirements:</b> You must use a desktop/laptop computer with a mouse/trackpad to complete the experiment.
             </p>
             <p style={{fontSize: 20}}>
-                <b>Procedures:</b> If you agree to participate in this study, the following will happen to you: <br />
-                1. You will sit at the computer and play a series of games with a computer agent. <br />
-                2. Try to get the highest score you can.
+                <b>Procedures:</b> If you agree to participate in this study, the following will happen: <br />
+                1. You will sit at the computer and play a series of games. <br />
+                2. You will be excluded from the experiment if you fail to pay attention.
             </p>
             <p style={{fontSize: 20}}>
                 <b>Risks:</b> No potential risks or discomforts are anticipated except that the task may be slightly boring.
             </p>
             <p style={{fontSize: 20}}>
-                <b>Payment/Remuneration:</b> You will receive half an hour of course credit. The experiment will last approximately 20 minutes.
+                <b>Payment/Remuneration:</b> You will receive half an hour of course credit. <span style={{color: 'red'}}>Bonus: You will enter into a lottery. If you are selected by lottery, you will be awarded one of the allocation choices you are going to make in this experiment. Each unit of value in the experiment correspond to  50 cents. The experiment will last approximately 30 minutes.</span>
             </p>
             <p style={{fontSize: 20}}>
                 <b>Rights:</b> You may call the UCSD Human Research Protection Program at 858-657-5100 to ask about your rights as a research subject or to report research-related problems.
@@ -51,7 +51,7 @@ function Consent() {
                 <b>Benefits:</b> There will be no direct benefit to you from these procedures. However, the investigators may learn more about basic questions pertaining to memory, perception, cognition, and learning. This knowledge may have benefits to society in fields ranging from education to design of airplane cockpits, but these benefits will be indirect.
             </p>
             <p style={{fontSize: 20}}>
-                <b>Technical problems:</b> <span style={{color: 'red'}}>If the game freezes on the next screen, please try a different browser and/or computer, and enter the version of your system and browser that have the problem at the end of the experiment,</span> where you can find further instructions. If you encounter other technical problems that prevent you from completing the experiment, please send a description of the problems to jix030@ucsd.edu.
+                <b>Technical problems:</b> <span style={{color: 'red'}}>If the game freezes on the next screen, please try a different browser and/or computer. At the end of the experiment, please enter the version of your system and browser which encountered the problem.</span> If you encounter other technical problems that prevent you from completing the experiment, please send a description of the problems to jix030@ucsd.edu.
             </p>
             <p style={{fontSize: 20}}>
                 <b>Explanation:</b> If you have other research-related questions or problems, you may reach us at 858-534-4401.

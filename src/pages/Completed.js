@@ -16,7 +16,13 @@ function Complete() {
     let theUrl = "submit.simple.php";
     xmlhttp.open("POST", theUrl);
     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xmlhttp.send(JSON.stringify(localStorage));
+    console.log(JSON.stringify(localStorage))
+    let data = {}
+    for (let i = 0; i < localStorage.length; i++) {
+        let k = localStorage.key(i);
+        data[k] = localStorage.getItem(k);
+    }
+    xmlhttp.send(JSON.stringify({client: {sid: 'test'}, data: data}));
 
     return <PageContainer>
         <div>
