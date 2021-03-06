@@ -201,11 +201,12 @@ function Board1({name, onRowSelect}) {
         </h1>
 
         <p style={{fontSize: 20}}>
-            <b>Instruction:</b> In this task we ask you to imagine that you have been randomly paired with people you
-            provided in Part I to split money in dollars. You will be making choices by clicking one of the radio buttons below.
-            Your own choices will produce money for both yourself and the other person. The more money you receive, the
-            better for you, and the more money the other person receives, the better for him/her. Please click continue once you are
-            finished.
+            <b>Instruction:</b> Think about your relationship with this person <b> at the time of the event</b>. Imagine that
+            we could pay either you or the person whose names you input in Part I a sum of money that person could use for
+            anything he or she wished. The money would be his/hers to keep. Please consider the following choices as if they
+            were real money and choose which option you would prefer. You will be making choices by clicking one of the radio buttons below.
+            You won't be assigned a new person until you complete <b>ALL</b> six game boards. In this section, you will be asked to make
+            money allocation selections for about seven people from your lise. Please click continue once you are finished.
         </p>
 
         <h2>

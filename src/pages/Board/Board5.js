@@ -166,40 +166,40 @@ function Board5({name, onRowSelect}) {
 
     const data = [
         {
-            you: "50",
-            other: "100"
+            you: "100",
+            other: "50"
         },
         {
-            you: "54",
-            other: "98"
+            you: "94",
+            other: "56"
         },
         {
-            you: "59",
-            other: "96"
-        },
-        {
-            you: "63",
-            other: "94"
-        },
-        {
-            you: "68",
-            other: "93"
-        },
-        {
-            you: "72",
-            other: "91"
-        },
-        {
-            you: "76",
-            other: "89"
+            you: "88",
+            other: "63"
         },
         {
             you: "81",
-            other: "87"
+            other: "69"
         },
         {
-            you: "85",
-            other: "85"
+            you: "75",
+            other: "75"
+        },
+        {
+            you: "69",
+            other: "81"
+        },
+        {
+            you: "63",
+            other: "88"
+        },
+        {
+            you: "56",
+            other: "94"
+        },
+        {
+            you: "50",
+            other: "100"
         }
     ];
 

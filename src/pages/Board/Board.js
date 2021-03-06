@@ -45,18 +45,15 @@ function Board() {
     // turn object into a list
     const duplicatedNames = [...names]
 
-    // randomize items in the list
-    //duplicatedNames.sort(() => Math.random() - 0.5)
+    let selectedNames = [duplicatedNames[0], duplicatedNames[1], duplicatedNames[3], duplicatedNames[7], duplicatedNames[11], duplicatedNames[13], duplicatedNames[14]]
 
-    const [entries, setEntries] = useState(duplicatedNames.map((name) => fromValue(name,)))
+    const [entries, setEntries] = useState(selectedNames.map((name) => fromValue(name,)))
 
-    console.log(entries.length)
     const removeFirstEntry = () => {
         if (entries.length > 1) {
-            setEntries(entries.slice(2));
+            setEntries(entries.slice(1));
         }
     }
-
 
     let name = entries[0].name
 
@@ -97,7 +94,7 @@ function Board() {
     removeLocalStorage("Game_asd _board6")*/
 
     async function onContinue() {
-        console.log(localStorage)
+        //console.log(localStorage)
         let cond1 = false;
         let cond2 = false;
         let cond3 = false;
@@ -107,32 +104,26 @@ function Board() {
 
         let i;
         for (i=1; i<7; i++){
-            console.log(i)
+
             const boardData = fromLocalStorage(`Game_${name}_board${i}`, {});
             const board = Object.values(boardData)
 
             if (board[0] === 1 && board[2] === true) {
-                console.log("hello")
                 //setCond1(true);
                 cond1 = true;
             } else if (board[0] === 2 && board[2] === true) {
-                console.log("hello")
                 //setCond2(true);
                 cond2 = true;
             } else if (board[0] === 3 && board[2] === true) {
-                console.log("hello")
                 //setCond3(true);
                 cond3 = true;
             } else if (board[0] === 4 && board[2] === true) {
-                console.log("hello")
                 //setCond4(true);
                 cond4 = true;
             } else if (board[0] === 5 && board[2] === true) {
-                console.log("hello")
                 //setCond5(true);
                 cond5 = true;
             } else if (board[0] === 6 && board[2] === true) {
-                console.log("hello")
                 //setCond6(true);
                 cond6 = true;
             };
