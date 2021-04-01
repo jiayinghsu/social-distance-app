@@ -197,16 +197,15 @@ function Board1({name, onRowSelect}) {
 
     return <div>
         <h1>
-            Part IV: Game Board
+            Part II: Game Board
         </h1>
 
         <p style={{fontSize: 20}}>
-            <b>Instruction:</b> Think about your relationship with this person <b> at the time of the event</b>. Imagine that
-            we could pay either you or the person whose names you input in Part I a sum of money that person could use for
+            <b>Instruction:</b> Imagine that we could pay either you or another player a sum of money that person could use for
             anything he or she wished. The money would be his/hers to keep. Please consider the following choices as if they
             were real money and choose which option you would prefer. You will be making choices by clicking one of the radio buttons below.
-            You won't be assigned a new person until you complete <b>ALL</b> six game boards. In this section, you will be asked to make
-            money allocation selections for about seven people from your lise. Please click continue once you are finished.
+            You won't be able to continue to the next trial until you complete <b>ALL</b> six game boards. In this section, you will be asked to make
+            money allocation selections for about two times. Please click continue once you are finished.
         </p>
 
         <h2>
