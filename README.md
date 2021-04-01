@@ -2,6 +2,9 @@
 
 This folder contains the webclient for the [social distancing project](this_link_does_not_exist).
 
-### To-dos
+### First Study 
 
-1. add drag and drop author list
+1. Final version: 2021-3-5-dev-branch
+
+### Second Study 
+1. First version: 2021-3-31-dev-branch-v2
