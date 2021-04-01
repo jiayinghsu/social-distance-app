@@ -68,7 +68,7 @@ function Consent() {
 
         </div>
 
-        <Link to="/list" style={{display: "block", marginTop: "15px"}}><LocalButton>Click here to consent and agree to participate</LocalButton></Link>
+        <Link to="/tradeoff" style={{display: "block", marginTop: "15px"}}><LocalButton>Click here to consent and agree to participate</LocalButton></Link>
     </PageContainer>;
 }
 

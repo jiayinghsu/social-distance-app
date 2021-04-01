@@ -95,43 +95,63 @@ export const StyledButton = styled.button`
 *
 * Google "control in pure component react".
 * */
+function randomize(myArray) {
+    myArray = myArray[Math.floor(Math.random() * myArray.length)];
 
-function fromValue(name, value = null) {
+    return myArray
+};
+
+function fromValue(name, b = null, value = null) {
     /* use random value if the value is `null`. */
-    if (value === null) value = ((Math.random() * (1.5 + 1.5)) - 1.5);
+    if (value === null) value = ((Math.random() * (2 + 1)) - 1);
+    if (b === null) b = randomize([8, 26, 16, 10])
+
     return {
         value,
         name,
-        you: -10 * value ** 2 + 50,
-        opponent: 20 * value + 30
+        b,
+        you: -2 * value ** 2 + b,
+        opponent: 4 * value + 10
     }
 }
 
 export default function SliderPage({}) {
 
-    const nameData = fromLocalStorage("names", {});
-    //const names = Object.keys(nameData);
-    let names = Object.entries(nameData).filter(([k, v]) => v !== -1);
-    names = Object.fromEntries(names);
-    names = Object.entries(names).map(([name, listId]) => name);
+    // const nameData = fromLocalStorage("names", {});
+    // //const names = Object.keys(nameData);
+    // let names = Object.entries(nameData).filter(([k, v]) => v !== -1);
+    // names = Object.fromEntries(names);
+    // names = Object.entries(names).map(([name, listId]) => name);
+
     //duplicate 3 times
-    const duplicatedNames = [...names, ...names, ...names, "Left", "Right"]
+    // const duplicatedNames = [...names, ...names, ...names, "Left", "Right"]
+
+    const duplicatedNames = ["Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Left", "Right"]
+    // const bs = [8, 26, 16, 10, 8, 26, 16, 10, 8, 26]
 
     // randomize items in the list
     duplicatedNames.sort(() => Math.random() - 0.5)
+
+    // const [entries, setState] = useState(duplicatedNames.map((name, index) => {
+    //    const b = bs[index];
+    //    fromValue(name, b, )
+    // }))
 
     const [entries, setState] = useState(duplicatedNames.map((name) => fromValue(name,)))
 
     const [cond, setCond] = useState(false);
 
-    function setValue(value, cond) {
+
+    function setValue(value) {
         const first = entries[0].name;
+        const b = entries[0].b;
+
         setState([
-            fromValue(first, value),
+            fromValue(first, b, value),
             ...entries.slice(1)
         ]);
 
-        let idx = 45 - entries.length;
+        let idx = 8 - entries.length;
 
         toLocalStorage(`slider_value${idx}`, entries[0]);
         //removeLocalStorage("slider_value-28");
@@ -162,18 +182,17 @@ export default function SliderPage({}) {
 
     return <PageContainer>
         <h1 className="app-title">
-            Part III: Splitting Money
+            Part I: Splitting Money
         </h1>
         <p style={{fontSize: 20}}>
-            <b>Instruction:</b> Think about your relationship with this person <b> at the time of the event</b>. Imagine that
-            we could pay either you or the person whose names you input in Part I a sum of money that person could use for
+            <b>Instruction:</b> Imagine that we could pay either you or another player a sum of money that person could use for
             anything he or she wished. The money would be his/hers to keep. Please choose the slider setting that represents
             the deal you would like best between you and this person. Click submit each time after you finish. You won't be
-            assigned a new person until you move the slider. In this section, you will be asked to choose a money allocation
-            around 45 times, so you will likely see the same person multiple times.
+            able to continue to the next trial until you move the slider. In this section, you will be asked to choose a money allocation
+            around 10 times.
         </p>
         <p style={{fontSize: 20}}>
-            <b>Attention:</b> Sometimes, instead of a person's name, you will see <span style={{color: "red"}}>"Left receives"</span>,
+            <b>Attention:</b> Sometimes, instead of an "Other", you will see <span style={{color: "red"}}>"Left receives"</span>,
             where you need to move the slider to the far left, or <span style={{color: "red"}}>"Right receives"</span>,
             where you need to move the slider to the far right.
 
@@ -184,8 +203,8 @@ export default function SliderPage({}) {
                     entries ?
                         <>
                             <div className="aside">
-                                <RangeSlider min={-1.5}
-                                             max={1.5}
+                                <RangeSlider min={-1}
+                                             max={2}
                                              step={0.05}
                                              tooltip={false}
                                              value={entries[0].value}

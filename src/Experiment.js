@@ -19,8 +19,8 @@ function Experiment() {
         <Router history = {history}>
             <Switch>
                 <Route exact path="/" component={Consent}/>
-                <Route path="/list" exact component={Kanban}/>
-                <Route path="/ranking" exact component={DDList}/>
+                {/*<Route path="/list" exact component={Kanban}/>*/}
+                {/*<Route path="/ranking" exact component={DDList}/>*/}
                 <Route path='/tradeoff' exact component={Slider}/>
                 <Route path='/break' exact component={Break}/>
                 <Route path='/board' exact component={Board}/>

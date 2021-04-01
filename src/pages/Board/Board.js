@@ -37,15 +37,17 @@ function Board() {
     \`  ;
     `;
 
-    const nameData = fromLocalStorage("names", {});
-    //const names = Object.keys(nameData);
-    let names = Object.entries(nameData).filter(([k, v]) => v !== -1);
-    names = Object.fromEntries(names);
-    names = Object.entries(names).map(([name, listId]) => name);
-    // turn object into a list
-    const duplicatedNames = [...names]
+    // const nameData = fromLocalStorage("names", {});
+    // //const names = Object.keys(nameData);
+    // let names = Object.entries(nameData).filter(([k, v]) => v !== -1);
+    // names = Object.fromEntries(names);
+    // names = Object.entries(names).map(([name, listId]) => name);
+    // // turn object into a list
+    // const duplicatedNames = [...names]
+    //
+    // let selectedNames = [duplicatedNames[0], duplicatedNames[1], duplicatedNames[3], duplicatedNames[7], duplicatedNames[11], duplicatedNames[13], duplicatedNames[14]]
 
-    let selectedNames = [duplicatedNames[0], duplicatedNames[1], duplicatedNames[3], duplicatedNames[7], duplicatedNames[11], duplicatedNames[13], duplicatedNames[14]]
+    let selectedNames = ["Other", "Other"]
 
     const [entries, setEntries] = useState(selectedNames.map((name) => fromValue(name,)))
 
