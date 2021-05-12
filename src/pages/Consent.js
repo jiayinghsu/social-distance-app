@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect }  from 'react';
 import styled from "styled-components";
 import {StyledButton} from "./SliderPage";
 import {Link} from "react-router-dom";
+import {toLocalStorage} from "../../components/helpers";
 
 
 const PageContainer = styled.div`
@@ -22,7 +23,53 @@ const LocalButton = styled(StyledButton)`
   margin-top: 15px;
 `;
 
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    let regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function isSona(){
+    let code = getParameterByName("survey_code");
+    let sona = getParameterByName("sona");
+    if(!(code == null) && !(sona == null)){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function parseClient(){
+    let client = {};
+    if(isSona()){
+        // is sona
+        client.type = 'sona';
+        client.experiment_id = 'myexptid';
+        client.credit_token = 'mytoken';
+        client.survey_code = getParameterByName("survey_code");
+        client.sid = 'sona-' + client.survey_code;
+    } else {
+        // just a random visitor?
+        client.type = 'visitor';
+        client.sid = 'visitor-' + Math.random().toString(36).substr(2, 5);
+    }
+    client.window = {width: $(window).width(), height: $(window).height()};
+    client.screen = {width: screen.width, height: screen.height};
+    client.userAgent = navigator.userAgent;
+    client.score = 0;
+    client.bonus = 0;
+    return(client);
+}
+
 function Consent() {
+    useEffect(() => {
+        toLocalStorage("client", parseClient());
+    }, []);
+
     return <PageContainer>
         <div>
             <h1>University of California, San Diego</h1>

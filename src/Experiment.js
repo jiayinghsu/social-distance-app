@@ -22,8 +22,8 @@ function Experiment() {
                 {/*<Route path="/list" exact component={Kanban}/>*/}
                 {/*<Route path="/ranking" exact component={DDList}/>*/}
                 <Route path='/tradeoff' exact component={Slider}/>
-                <Route path='/break' exact component={Break}/>
-                <Route path='/board' exact component={Board}/>
+                {/*<Route path='/break' exact component={Break}/>*/}
+                {/*<Route path='/board' exact component={Board}/>*/}
 {/*                <Route path='/board1' exact component={Board1}/>
                 <Route path='/board2' exact component={Board2}/>
                 <Route path='/board3' exact component={Board3}/>

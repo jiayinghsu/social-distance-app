@@ -95,16 +95,29 @@ export const StyledButton = styled.button`
 *
 * Google "control in pure component react".
 * */
-function randomize(myArray) {
-    myArray = myArray[Math.floor(Math.random() * myArray.length)];
+// function randomize(myArray) {
+//     myArray = myArray[Math.floor(Math.random() * myArray.length)];
+//
+//     return myArray
+// };
 
-    return myArray
+function shuffle(arr) {
+    let i;
+    let j;
+    let temp;
+    for (i = arr.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    return arr[0];
 };
 
 function fromValue(name, b = null, value = null) {
     /* use random value if the value is `null`. */
     if (value === null) value = ((Math.random() * (2 + 1)) - 1);
-    if (b === null) b = randomize([8, 26, 16, 10])
+    if (b === null) b = shuffle([8, 26, 16, 10])
 
     return {
         value,
@@ -126,7 +139,12 @@ export default function SliderPage({}) {
     //duplicate 3 times
     // const duplicatedNames = [...names, ...names, ...names, "Left", "Right"]
 
-    const duplicatedNames = ["Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Left", "Right"]
+    const duplicatedNames = ["Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Left", "Right",
+        "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Left", "Right",
+        "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Left", "Right",
+        "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Left", "Right",
+        "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Left", "Right",
+        "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Left", "Right"]
     // const bs = [8, 26, 16, 10, 8, 26, 16, 10, 8, 26]
 
     // randomize items in the list
@@ -151,7 +169,7 @@ export default function SliderPage({}) {
             ...entries.slice(1)
         ]);
 
-        let idx = 8 - entries.length;
+        let idx = 72 - entries.length;
 
         toLocalStorage(`slider_value${idx}`, entries[0]);
         //removeLocalStorage("slider_value-28");
@@ -177,7 +195,7 @@ export default function SliderPage({}) {
             Submit
         </StyledButton>;
     } else {
-        button = <Link to="/break"><StyledButton disabled={cond?null:true}>Done</StyledButton></Link>;
+        button = <Link to="/complete"><StyledButton disabled={cond?null:true}>Done</StyledButton></Link>;
     }
 
     return <PageContainer>
