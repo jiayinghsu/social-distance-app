@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+//import {Link} from "react-router-dom";
 import {StyledButton} from "./SliderPage";
-import {fromLocalStorage} from "../../components/helpers";
+import {fromLocalStorage} from "../components/helpers";
 
 const PageContainer = styled.div`
   padding: 40px 100px;
@@ -13,6 +13,14 @@ const PageContainer = styled.div`
     margin-top: 80px;
   }
 `;
+
+function addHidden(id, value){
+    let input = document.createElement("input");
+    input.setAttribute("type", "hidden");
+    input.setAttribute("name", id);
+    input.setAttribute("value", value);
+    return(input);
+}
 
 function postSona(client){
     const form = document.createElement('form');
@@ -46,7 +54,7 @@ function Complete() {
 
     //add sona
     let button;
-    button = <StyledButton onClick={() => postSona(fromLocalStorage("client"))}>Click me</StyledButton>;
+    button = <StyledButton  onClick={() => postSona(fromLocalStorage("client"))}>Click Me to Get Credit!</StyledButton>;
 
     return <PageContainer>
         <div>

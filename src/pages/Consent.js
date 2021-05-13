@@ -2,7 +2,7 @@ import React, { useEffect }  from 'react';
 import styled from "styled-components";
 import {StyledButton} from "./SliderPage";
 import {Link} from "react-router-dom";
-import {toLocalStorage} from "../../components/helpers";
+import {toLocalStorage} from "../components/helpers.js";
 
 
 const PageContainer = styled.div`
@@ -25,7 +25,7 @@ const LocalButton = styled(StyledButton)`
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
+    name = name.replace(/[[\]]/g, "\\$&");
     let regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
         results = regex.exec(url);
     if (!results) return null;
@@ -47,9 +47,15 @@ function parseClient(){
     let client = {};
     if(isSona()){
         // is sona
+        const part = getParameterByName('part');
         client.type = 'sona';
-        client.experiment_id = 'myexptid';
-        client.credit_token = 'mytoken';
+        if (part === '1') {
+            client.experiment_id = '2097';
+            client.credit_token = '39829087b53c4f53afb0b75f3ef4d31e';
+        } else {
+            client.experiment_id = '2098';
+            client.credit_token = '0f2760319bd94e66ab05b4735cbffe18';
+        }
         client.survey_code = getParameterByName("survey_code");
         client.sid = 'sona-' + client.survey_code;
     } else {
@@ -57,8 +63,6 @@ function parseClient(){
         client.type = 'visitor';
         client.sid = 'visitor-' + Math.random().toString(36).substr(2, 5);
     }
-    client.window = {width: $(window).width(), height: $(window).height()};
-    client.screen = {width: screen.width, height: screen.height};
     client.userAgent = navigator.userAgent;
     client.score = 0;
     client.bonus = 0;
@@ -115,7 +119,7 @@ function Consent() {
 
         </div>
 
-        <Link to="/tradeoff" style={{display: "block", marginTop: "15px"}}><LocalButton>Click here to consent and agree to participate</LocalButton></Link>
+        <Link to="/list" style={{display: "block", marginTop: "15px"}}><LocalButton>Click here to consent and agree to participate</LocalButton></Link>
     </PageContainer>;
 }
 
