@@ -11,7 +11,7 @@ import "./barchart.css";
 let barHeight = 45;
 let barPadding = 2;
 let barColour = "#23aaff";
-let widthScale = (d) => Math.abs(d*15);
+let widthScale = (d) => Math.abs(d*6.5);
 
 function BarGroup({data: {name}, state: {value, y}, ..._props}) {
     let width = widthScale(value);
